@@ -1,3 +1,3 @@
-#Project Dog Game
+# Project Dog Game
 - yarn install
 - yarn start
