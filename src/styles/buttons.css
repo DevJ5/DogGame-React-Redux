@@ -12,6 +12,7 @@ button {
 }
 
 button:focus {
+  /*outline: 4px blueviolet solid !important;*/
   outline: 0 !important;
 }
 

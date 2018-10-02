@@ -9,7 +9,9 @@ export default (
   correct,
   nextQuestion,
   incrementScore,
-  incrementQuestionsAsked
+  incrementQuestionsAsked,
+  incrementWinStreak,
+  resetWinStreak
 ) => {
 
   const correctButton = document.getElementById('button-' + correct);
@@ -20,6 +22,8 @@ export default (
   if (targetValue === correct) {
     // Show something green
     incrementScore(); // dispatch the ADD_TO_SCORE
+    incrementWinStreak();
+
     rightAnswerStyles();
 
     setTimeout(() => {
@@ -29,7 +33,7 @@ export default (
     }, 500);
   } else {
     // Show something red and wait 2 seconds before showing
-
+    resetWinStreak();
     wrongAnswersStyles(correctButton, wrongButton);
 
     setTimeout(() => {
