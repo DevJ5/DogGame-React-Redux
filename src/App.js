@@ -1,22 +1,17 @@
 import './App.css';
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
 import request from 'superagent';
-import Main from './components/Main';
+import {Main} from './components/Main';
 import Footer from './components/Footer';
 
 import {
+  addToNumberOfQuestionsAsked,
+  addToScore,
   getAnswers,
   setAllBreeds,
-  setCorrectBreed,
-  scoreChecker,
-  currentStreak,
-  addToScore,
-  addToNumberOfQuestionsAsked
+  setCorrectBreed
 } from './actions/AppActions';
-
-import { Buttons } from './components/Buttons';
-import { Image } from './components/Image';
 import userFeedback from './functions/userFeedback';
 import Header from './components/Header';
 
@@ -58,14 +53,6 @@ class App extends PureComponent {
       100
     ).toFixed(2);
     return `Score: ${score} %`;
-
-  incrementCurrentStreak(){
-    this.props.dispatch(currentStreak())
-  }
-
-  cleanWinStreak(){
-    this.props.dispatch()
-
   }
 
   handleClick = e => {
@@ -75,22 +62,17 @@ class App extends PureComponent {
       this.props.correctBreed.name,
       this.nextQuestion.bind(this),
       this.incrementScore.bind(this),
-      this.incrementQuestionsAsked.bind(this)
+      this.incrementQuestionsAsked.bind(this),
+      this.calculateScore.bind(this)
     );
   };
 
   render() {
     return (
       <div className="App">
-        <Header />
-        <Main />
-        {this.props.correctBreed && (
-          <Image correctBreed={this.props.correctBreed} />
-        )}
-        {this.props.answers.length > 0 && (
-          <Buttons answers={this.props.answers} onClick={this.handleClick} />
-        )}
-        <Footer />
+        <Header/>
+        <Main correctBreed={this.props.correctBreed} answers={this.props.answers} onClick={this.handleClick}/>
+        <Footer/>
       </div>
     );
   }
