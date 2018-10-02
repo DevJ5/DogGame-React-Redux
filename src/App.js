@@ -7,7 +7,7 @@ import {
   getAnswers,
   setAllBreeds,
   setCorrectBreed,
-  checkIfCorrectAnswer
+  scoreChecker
 } from './actions/AppActions';
 
 import { Buttons } from './components/Buttons';
@@ -36,7 +36,9 @@ class App extends PureComponent {
   nextQuestion() {
     this.getQuestion();
   }
-
+  incrementQuestionsAsked() {
+    this.props.dispatch(scoreChecker());
+  }
   handleClick = e => {
     e.preventDefault();
     // this.props.dispatch(
@@ -49,7 +51,8 @@ class App extends PureComponent {
     userFeedback(
       e.target.value.toLowerCase(),
       this.props.correctBreed.name,
-      this.nextQuestion.bind(this)
+      this.nextQuestion.bind(this),
+      this.incrementQuestionsAsked.bind(this)
     );
   };
   render() {
