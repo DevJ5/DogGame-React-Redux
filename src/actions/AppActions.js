@@ -1,6 +1,7 @@
 import { SET_BREEDS } from '../reducers/allBreeds';
 import { SET_CORRECT_BREED } from '../reducers/correctBreed';
 import { GET_ANSWERS } from '../reducers/answers';
+import { ADD_TO_SCORE } from '../reducers/scoreChecker';
 import capitalize from '../helpers/capitalize';
 import shuffleArray from '../helpers/shuffleArray';
 
@@ -35,6 +36,12 @@ export const getAnswers = (correctBreed, allBreeds) => {
   return {
     type: GET_ANSWERS,
     payload: shuffleArray(breedsInArray).map(breed => capitalize(breed))
+  };
+};
+
+export const scoreChecker = () => {
+  return {
+    type: ADD_TO_SCORE
   };
 };
 
