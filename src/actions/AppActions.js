@@ -4,6 +4,8 @@ import { GET_ANSWERS } from '../reducers/answers';
 import { ADD_TO_SCORE } from '../reducers/scoreChecker';
 import capitalize from '../helpers/capitalize';
 import shuffleArray from '../helpers/shuffleArray';
+import { ADD_TO_STREAK, CLEAN_STREAK } from '../reducers/currentStreak'
+
 
 export const setAllBreeds = breeds => ({
   type: SET_BREEDS,
@@ -44,6 +46,18 @@ export const scoreChecker = () => {
     type: ADD_TO_SCORE
   };
 };
+
+export const incrementWinStreak = () => {
+  return{
+    type: ADD_TO_STREAK
+  }
+}
+
+export const cleanWinStreak = () => {
+  return{
+    type: CLEAN_STREAK
+  }
+}
 
 // export const checkIfCorrectAnswer = (clickedValue, correctBreed) => {
 //   if (clickedValue === correctBreed) {

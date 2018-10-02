@@ -7,7 +7,8 @@ import {
   getAnswers,
   setAllBreeds,
   setCorrectBreed,
-  scoreChecker
+  scoreChecker,
+  currentStreak
 } from './actions/AppActions';
 
 import { Buttons } from './components/Buttons';
@@ -39,6 +40,15 @@ class App extends PureComponent {
   incrementQuestionsAsked() {
     this.props.dispatch(scoreChecker());
   }
+
+  incrementCurrentStreak(){
+    this.props.dispatch(currentStreak())
+  }
+
+cleanWinStreak(){
+  this.props.dispatch()
+}
+
   handleClick = e => {
     e.preventDefault();
     // this.props.dispatch(
