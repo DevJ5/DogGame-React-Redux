@@ -1,6 +1,8 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
+import '../styles/buttons.css';
+
 export function Buttons(props) {
   console.log(props.answers);
   return (
@@ -9,6 +11,7 @@ export function Buttons(props) {
         <button
           key={answer}
           id={'button-' + answer.toLowerCase()}
+          className={'default-button'}
           value={answer}
           onClick={props.onClick}
         >
