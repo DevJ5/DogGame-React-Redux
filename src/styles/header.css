@@ -1,4 +1,4 @@
-header {
+.Header {
   margin-top: 2em;
   width: 800px;
   height: 100px;
@@ -18,4 +18,12 @@ header p {
   font-size: 32px;
   font-weight: lighter;
   margin-left: 20px;
+}
+
+.right-answer-header {
+  border-color: #00c800;
+}
+
+.wrong-answer-header {
+  border-color: #c80000;
 }

@@ -60,10 +60,10 @@ class App extends PureComponent {
   }
 
   calculateScore() {
-    const score = (
+    const score = parseInt((
       (this.props.currentScore / this.props.numberOfQuestionsAsked) *
       100
-    ).toFixed(2);
+    ).toFixed(2));
     return isNaN(score) ? 0 : score;
   }
 

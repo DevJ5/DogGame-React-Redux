@@ -1,6 +1,14 @@
-.dog-image {
+.Image {
   height: 400px;
   border: 1em solid black;
   border-radius: 1em;
   margin: 2rem
+}
+
+.right-answer-image {
+  border-color: #00c800;
+}
+
+.wrong-answer-image {
+  border-color: #c80000;
 }

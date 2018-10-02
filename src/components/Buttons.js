@@ -4,7 +4,7 @@ import React from 'react';
 import '../styles/buttons.css';
 
 export function Buttons(props) {
-  console.log(props.answers);
+  // console.log(props.answers);
   return (
     <div className={'buttons'}>
       {props.answers.map(answer => (
