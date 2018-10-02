@@ -1,4 +1,4 @@
-export const ADD_TO_STREAK = 'ADD_TO_STREAKE';
+export const ADD_TO_STREAK = 'ADD_TO_STREAK';
 export const RESET_STREAK = 'RESET_STREAK'
 
 export default (state = 0, action) => {
@@ -6,7 +6,7 @@ export default (state = 0, action) => {
     case ADD_TO_STREAK:
       return state + 1;
     case RESET_STREAK:
-        return state = 0;
+        return 0;
     default:
       return state;
   }

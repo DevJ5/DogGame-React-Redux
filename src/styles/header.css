@@ -5,6 +5,7 @@ header {
   background: #3a3a3b;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
 
   border: 1em dotted gold;
