@@ -5,6 +5,8 @@ import { ADD_TO_SCORE } from '../reducers/currentScore';
 import { ADD_TO_QUESTIONS_ASKED } from '../reducers/numberOfQuestionsAsked';
 import capitalize from '../helpers/capitalize';
 import shuffleArray from '../helpers/shuffleArray';
+import { ADD_TO_STREAK, CLEAN_STREAK } from '../reducers/currentStreak'
+
 
 export const setAllBreeds = breeds => ({
   type: SET_BREEDS,
@@ -45,6 +47,33 @@ export const addToScore = () => {
     type: ADD_TO_SCORE
   };
 };
+
+export const incrementWinStreak = () => {
+  return{
+    type: ADD_TO_STREAK
+  }
+}
+
+export const cleanWinStreak = () => {
+  return{
+    type: CLEAN_STREAK
+  }
+}
+
+// export const checkIfCorrectAnswer = (clickedValue, correctBreed) => {
+//   if (clickedValue === correctBreed) {
+//     console.log('right');
+//     return {
+//       type:
+//     }
+//   } else {
+//     console.log('wrong');
+//   }
+
+//   return {
+//     type:
+//   }
+// };
 
 export const addToNumberOfQuestionsAsked = () => {
   return {

@@ -9,6 +9,8 @@ import {
   getAnswers,
   setAllBreeds,
   setCorrectBreed,
+  scoreChecker,
+  currentStreak,
   addToScore,
   addToNumberOfQuestionsAsked
 } from './actions/AppActions';
@@ -49,12 +51,21 @@ class App extends PureComponent {
     this.props.dispatch(addToScore());
   }
 
+
   calculateScore() {
     const score = (
       (this.props.currentScore / this.props.numberOfQuestionsAsked) *
       100
     ).toFixed(2);
     return `Score: ${score} %`;
+
+  incrementCurrentStreak(){
+    this.props.dispatch(currentStreak())
+  }
+
+  cleanWinStreak(){
+    this.props.dispatch()
+
   }
 
   handleClick = e => {
