@@ -1,32 +1,39 @@
-import {SET_BREEDS} from "../reducers/allBreeds";
-import {SET_CORRECT_BREED} from "../reducers/correctBreed";
-import {GET_ANSWERS} from "../reducers/answers";
+import { SET_BREEDS } from '../reducers/allBreeds';
+import { SET_CORRECT_BREED } from '../reducers/correctBreed';
+import { GET_ANSWERS } from '../reducers/answers';
+import capitalize from '../helpers/capitalize';
 
-import capitalize from "../helpers/capitalize";
-
-export const setBreeds = allBreeds => ({
+export const setAllBreeds = breeds => ({
   type: SET_BREEDS,
-  payload: Object.keys(allBreeds)
+  payload: Object.keys(breeds)
 });
 
-export const setCorrectBreed = CorrectBreed => ({
-  type: SET_CORRECT_BREED,
-  payload: {
-    image: CorrectBreed,
-    name: CorrectBreed.split('/')[4].split('-')[0]
-  }
-});
+export const setCorrectBreed = breedUrl => {
+  const convertUrlToBreed = url => {
+    const breed = url.split('/')[4];
+    if (breed.includes('-')) return capitalize(breed.split('-')[0]);
+    return capitalize(breed);
+  };
 
-export const getAnswers = (correctBreed, allBreeds) => {
-
-  const getRandomBreed = () => allBreeds[Math.floor(Math.random() * allBreeds.length)];
-
-  return ({
-    type: GET_ANSWERS,
-    payload: [getRandomBreed(), getRandomBreed(), correctBreed].map(breed => capitalize(breed))
-  })
+  return {
+    type: SET_CORRECT_BREED,
+    payload: {
+      image: breedUrl,
+      name: convertUrlToBreed(breedUrl)
+    }
+  };
 };
 
-// export const clicks = buttonValue => ({
-//   type:
-// })
+export const getAnswers = (correctBreed, allBreeds) => {
+  const getRandomBreed = allBreeds =>
+    capitalize(allBreeds[Math.floor(Math.random() * allBreeds.length)]);
+
+  const generateThreeBreeds = allBreeds => {
+    return [getRandomBreed(allBreeds), getRandomBreed(allBreeds), correctBreed];
+  };
+
+  return {
+    type: GET_ANSWERS,
+    payload: generateThreeBreeds(allBreeds)
+  };
+};
