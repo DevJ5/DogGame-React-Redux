@@ -6,7 +6,8 @@ import request from 'superagent';
 import {
   getAnswers,
   setAllBreeds,
-  setCorrectBreed
+  setCorrectBreed,
+  checkIfCorrectAnswer
 } from './actions/AppActions';
 
 import { Buttons } from './components/Buttons';
@@ -17,10 +18,10 @@ class App extends PureComponent {
     request.get('https://dog.ceo/api/breeds/list/all').then(res => {
       this.props.dispatch(setAllBreeds(res.body.message));
     });
-    this.getRandomImage();
+    this.getQuestion();
   }
 
-  getRandomImage() {
+  getQuestion() {
     request
       .get('https://dog.ceo/api/breeds/image/random')
       .then(res => this.props.dispatch(setCorrectBreed(res.body.message)))
@@ -31,10 +32,24 @@ class App extends PureComponent {
       });
   }
 
+  nextQuestion() {
+    this.getQuestion();
+  }
+
   handleClick = e => {
     e.preventDefault();
-    // Where we ended...
-    console.log(e.target.value);
+    // this.props.dispatch(
+    //   checkIfCorrectAnswer(
+    //     e.target.value.toLowerCase(),
+    //     this.props.correctBreed.name
+    //   )
+    // );
+
+    if (e.target.value.toLowerCase() === this.props.correctBreed.name) {
+      this.nextQuestion();
+    } else {
+      this.nextQuestion();
+    }
   };
 
   render() {
