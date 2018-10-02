@@ -1,8 +1,8 @@
 import './App.css';
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import request from 'superagent';
-import {Main} from './components/Main';
+import { Main } from './components/Main';
 import Footer from './components/Footer';
 
 import {
@@ -11,9 +11,8 @@ import {
   getAnswers,
   setAllBreeds,
   setCorrectBreed,
-  addToScore,
-  addToNumberOfQuestionsAsked,
-  currentStreak
+  addToWinStreak,
+  resetWinStreak
 } from './actions/AppActions';
 import userFeedback from './functions/userFeedback';
 import Header from './components/Header';
@@ -49,12 +48,12 @@ class App extends PureComponent {
     this.props.dispatch(addToScore());
   }
 
-  incremetWinStreak() {
-    this.props.dispatch(currentStreak(addToWinStreak))
+  incrementWinStreak() {
+    this.props.dispatch(addToWinStreak());
   }
 
   resetWinStreak() {
-    this.props.dispatch(currentStreak(resetWinStreak))
+    this.props.dispatch(resetWinStreak());
   }
 
   calculateScore() {
@@ -73,7 +72,7 @@ class App extends PureComponent {
       this.nextQuestion.bind(this),
       this.incrementScore.bind(this),
       this.incrementQuestionsAsked.bind(this),
-      this.incremetWinStreak.bind(this),
+      this.incrementWinStreak.bind(this),
       this.calculateScore.bind(this)
     );
   };
@@ -81,9 +80,13 @@ class App extends PureComponent {
   render() {
     return (
       <div className="App">
-        <Header/>
-        <Main correctBreed={this.props.correctBreed} answers={this.props.answers} onClick={this.handleClick}/>
-        <Footer/>
+        <Header />
+        <Main
+          correctBreed={this.props.correctBreed}
+          answers={this.props.answers}
+          onClick={this.handleClick}
+        />
+        <Footer />
       </div>
     );
   }
