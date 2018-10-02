@@ -1,0 +1,20 @@
+header {
+  margin-top: 3em;
+  width: 800px;
+  height: 200px;
+  background: #3a3a3b;
+
+  display: flex;
+  align-items: center;
+
+  border: 1em dotted gold;
+  border-radius: 4em;
+}
+
+header p {
+  color: white;
+  font-family: 'Meie Script', cursive;
+  font-size: 52px;
+  font-weight: lighter;
+  margin-left: 20px;
+}

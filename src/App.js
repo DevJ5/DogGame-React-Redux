@@ -13,6 +13,7 @@ import {
 import { Buttons } from './components/Buttons';
 import { Image } from './components/Image';
 import userFeedback from './functions/userFeedback';
+import Header from "./components/Header";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -58,6 +59,7 @@ class App extends PureComponent {
   render() {
     return (
       <div className="App">
+        <Header />
         {this.props.correctBreed && (
           <Image correctBreed={this.props.correctBreed} />
         )}
