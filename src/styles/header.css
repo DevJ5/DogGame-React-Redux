@@ -1,7 +1,7 @@
 header {
-  margin-top: 3em;
+  margin-top: 2em;
   width: 800px;
-  height: 200px;
+  height: 100px;
   background: #3a3a3b;
 
   display: flex;
@@ -14,7 +14,7 @@ header {
 header p {
   color: white;
   font-family: 'Meie Script', cursive;
-  font-size: 52px;
+  font-size: 32px;
   font-weight: lighter;
   margin-left: 20px;
 }
