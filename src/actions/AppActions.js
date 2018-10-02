@@ -1,11 +1,11 @@
-import {SET_BREEDS} from '../reducers/allBreeds';
-import {SET_CORRECT_BREED} from '../reducers/correctBreed';
-import {GET_ANSWERS} from '../reducers/answers';
-import {ADD_TO_SCORE} from '../reducers/currentScore';
-import {ADD_TO_QUESTIONS_ASKED} from '../reducers/numberOfQuestionsAsked';
+import { SET_BREEDS } from '../reducers/allBreeds';
+import { SET_CORRECT_BREED } from '../reducers/correctBreed';
+import { GET_ANSWERS } from '../reducers/answers';
+import { ADD_TO_SCORE } from '../reducers/currentScore';
+import { ADD_TO_QUESTIONS_ASKED } from '../reducers/numberOfQuestionsAsked';
 import capitalize from '../helpers/capitalize';
 import shuffleArray from '../helpers/shuffleArray';
-
+import { ADD_TO_STREAK, RESET_STREAK } from '../reducers/currentStreak';
 
 export const setAllBreeds = breeds => ({
   type: SET_BREEDS,
@@ -52,3 +52,15 @@ export const addToNumberOfQuestionsAsked = () => {
     type: ADD_TO_QUESTIONS_ASKED
   };
 };
+
+export const addToWinStreak = () => {
+  return {
+    type: ADD_TO_STREAK
+  }
+}
+
+export const resetWinStreak = () => {
+  return {
+    type: RESET_STREAK
+  }
+}

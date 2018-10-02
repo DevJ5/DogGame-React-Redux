@@ -10,7 +10,10 @@ import {
   addToScore,
   getAnswers,
   setAllBreeds,
-  setCorrectBreed
+  setCorrectBreed,
+  addToScore,
+  addToNumberOfQuestionsAsked,
+  currentStreak
 } from './actions/AppActions';
 import userFeedback from './functions/userFeedback';
 import Header from './components/Header';
@@ -46,6 +49,13 @@ class App extends PureComponent {
     this.props.dispatch(addToScore());
   }
 
+  incremetWinStreak() {
+    this.props.dispatch(currentStreak(addToWinStreak))
+  }
+
+  resetWinStreak() {
+    this.props.dispatch(currentStreak(resetWinStreak))
+  }
 
   calculateScore() {
     const score = (
@@ -63,6 +73,7 @@ class App extends PureComponent {
       this.nextQuestion.bind(this),
       this.incrementScore.bind(this),
       this.incrementQuestionsAsked.bind(this),
+      this.incremetWinStreak.bind(this),
       this.calculateScore.bind(this)
     );
   };
