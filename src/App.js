@@ -2,6 +2,8 @@ import './App.css';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import request from 'superagent';
+import Main from './components/Main';
+import Footer from './components/Footer';
 
 import {
   getAnswers,
@@ -14,7 +16,7 @@ import {
 import { Buttons } from './components/Buttons';
 import { Image } from './components/Image';
 import userFeedback from './functions/userFeedback';
-import Header from "./components/Header";
+import Header from './components/Header';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -47,6 +49,14 @@ class App extends PureComponent {
     this.props.dispatch(addToScore());
   }
 
+  calculateScore() {
+    const score = (
+      (this.props.currentScore / this.props.numberOfQuestionsAsked) *
+      100
+    ).toFixed(2);
+    return `Score: ${score} %`;
+  }
+
   handleClick = e => {
     e.preventDefault();
     userFeedback(
@@ -62,12 +72,14 @@ class App extends PureComponent {
     return (
       <div className="App">
         <Header />
+        <Main />
         {this.props.correctBreed && (
           <Image correctBreed={this.props.correctBreed} />
         )}
         {this.props.answers.length > 0 && (
           <Buttons answers={this.props.answers} onClick={this.handleClick} />
         )}
+        <Footer />
       </div>
     );
   }
