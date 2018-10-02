@@ -1,23 +1,37 @@
 export default (targetValue, correct, nextQuestion) => {
+  const bodyStyle = document.body.style;
+
   if (targetValue === correct) {
     // Show something green
-    document.body.style.backgroundColor = 'green';
+
+    bodyStyle.backgroundColor = 'green';
+
     setTimeout(() => {
-      document.body.style.backgroundColor = 'white';
+
+      bodyStyle.backgroundColor = 'white';
+
       nextQuestion();
     }, 500);
+
   } else {
     // Show something red and wait 2 seconds before showing
-    document.body.style.backgroundColor = 'red';
-    document.getElementById(
-      'button-' + correct
-    ).style.background = 'green';
+
+    const correctButton = document.getElementById('button-' + correct);
+    const wrongButton = document.getElementById('button-' + targetValue);
+
+      bodyStyle.backgroundColor = 'red';
+      correctButton.className = 'correct-button';
+      wrongButton.className = 'wrong-button';
+
     setTimeout(() => {
-      document.body.style.backgroundColor = 'white';
-      document.getElementById(
-        'button-' + correct
-      ).UseVisualStyleBackColor = true;
+
+      bodyStyle.backgroundColor = 'white';
+      correctButton.className = 'default-button';
+      wrongButton.className = 'default-button';
+
       nextQuestion();
     }, 2000);
   }
+
+
 }
