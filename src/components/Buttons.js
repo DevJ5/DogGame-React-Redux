@@ -2,17 +2,19 @@ import * as PropTypes from 'prop-types';
 import React from 'react';
 
 export function Buttons(props) {
+  console.log(props.answers);
   return (
     <div>
-      <button value={props.answers[0]} onClick={props.onClick}>
-        {props.answers[0]}
-      </button>
-      <button value={props.answers[1]} onClick={props.onClick}>
-        {props.answers[1]}
-      </button>
-      <button value={props.answers[2]} onClick={props.onClick}>
-        {props.answers[2]}
-      </button>
+      {props.answers.map(answer => (
+        <button
+          key={answer}
+          id={'button-' + answer.toLowerCase()}
+          value={answer}
+          onClick={props.onClick}
+        >
+          {answer}
+        </button>
+      ))}
     </div>
   );
 }

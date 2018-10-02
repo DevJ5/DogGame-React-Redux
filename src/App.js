@@ -46,14 +46,29 @@ class App extends PureComponent {
     // );
 
     if (e.target.value.toLowerCase() === this.props.correctBreed.name) {
-      this.nextQuestion();
+      // Show something green
+      document.body.style.backgroundColor = 'green';
+      setTimeout(() => {
+        document.body.style.backgroundColor = 'white';
+        this.nextQuestion();
+      }, 500);
     } else {
-      this.nextQuestion();
+      // Show something red and wait 2 seconds before showing
+      document.body.style.backgroundColor = 'red';
+      document.getElementById(
+        'button-' + this.props.correctBreed.name
+      ).style.background = 'green';
+      setTimeout(() => {
+        document.body.style.backgroundColor = 'white';
+        document.getElementById(
+          'button-' + this.props.correctBreed.name
+        ).UseVisualStyleBackColor = true;
+        this.nextQuestion();
+      }, 2000);
     }
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className="App">
         {this.props.correctBreed && (
