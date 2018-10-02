@@ -6,7 +6,7 @@ import '../styles/buttons.css';
 export function Buttons(props) {
   console.log(props.answers);
   return (
-    <div>
+    <div className={'buttons'}>
       {props.answers.map(answer => (
         <button
           key={answer}
