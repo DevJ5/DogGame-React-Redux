@@ -5,6 +5,7 @@ import { ADD_TO_SCORE } from '../reducers/currentScore';
 import { ADD_TO_QUESTIONS_ASKED } from '../reducers/numberOfQuestionsAsked';
 import capitalize from '../helpers/capitalize';
 import shuffleArray from '../helpers/shuffleArray';
+import { ADD_TO_STREAK } from '../reducers/currentStreak';
 
 export const setAllBreeds = breeds => ({
   type: SET_BREEDS,
@@ -51,3 +52,9 @@ export const addToNumberOfQuestionsAsked = () => {
     type: ADD_TO_QUESTIONS_ASKED
   };
 };
+
+export const addToStreak = () => {
+  return {
+    type: ADD_TO_STREAK
+  }
+}

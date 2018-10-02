@@ -8,7 +8,8 @@ import {
   setAllBreeds,
   setCorrectBreed,
   addToScore,
-  addToNumberOfQuestionsAsked
+  addToNumberOfQuestionsAsked,
+  currentStreak
 } from './actions/AppActions';
 
 import { Buttons } from './components/Buttons';
@@ -47,6 +48,14 @@ class App extends PureComponent {
     this.props.dispatch(addToScore());
   }
 
+  incremetWinStreak() {
+    this.props.dispatch(currentStreak(addToWinStreak))
+  }
+
+  resetWinStreak() {
+    this.props.dispatch(currentStreak(resetWinStreak))
+  }
+
   handleClick = e => {
     e.preventDefault();
     userFeedback(
@@ -54,7 +63,8 @@ class App extends PureComponent {
       this.props.correctBreed.name,
       this.nextQuestion.bind(this),
       this.incrementScore.bind(this),
-      this.incrementQuestionsAsked.bind(this)
+      this.incrementQuestionsAsked.bind(this),
+      this.incremetWinStreak.bind(this)
     );
   };
 
