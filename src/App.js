@@ -14,7 +14,7 @@ import {
   addToWinStreak,
   resetWinStreak
 } from './actions/AppActions';
-import userFeedback from './functions/userFeedback';
+import userFeedback from './functions/gameLogic';
 import Header from './components/Header';
 
 class App extends PureComponent {
