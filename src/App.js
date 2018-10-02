@@ -2,23 +2,21 @@ import './App.css';
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import request from 'superagent';
-import {Main} from './components/Main';
 import Footer from './components/Footer';
 
 import {
   addToNumberOfQuestionsAsked,
   addToScore,
-  getAnswers,
-  setAllBreeds,
-  setCorrectBreed,
   addToWinStreak,
-  resetWinStreak
+  getAnswers,
+  resetWinStreak,
+  setAllBreeds,
+  setCorrectBreed
 } from './actions/AppActions';
 
 import gameLogic from './functions/gameLogic';
 import Header from './components/Header';
-import Score from "./components/Score";
-import StreakCounter from "./components/StreakCounter";
+import {Game} from "./components/Game";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -88,15 +86,8 @@ class App extends PureComponent {
     return (
       <div className={'App'}>
         <Header/>
-        <div className={'Game'}>
-          <Score score={this.calculateScore()}/>
-          <Main
-            correctBreed={this.props.correctBreed}
-            answers={this.props.answers}
-            onClick={this.handleClick}
-          />
-          <StreakCounter streak={this.props.currentStreak}/>
-        </div>
+        <Game score={this.calculateScore()} correctBreed={this.props.correctBreed} answers={this.props.answers}
+              onClick={this.handleClick} streak={this.props.currentStreak}/>
         <Footer/>
       </div>
     );
