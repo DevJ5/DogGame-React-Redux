@@ -1,7 +1,8 @@
 import { SET_BREEDS } from '../reducers/allBreeds';
 import { SET_CORRECT_BREED } from '../reducers/correctBreed';
 import { GET_ANSWERS } from '../reducers/answers';
-import { ADD_TO_SCORE } from '../reducers/scoreChecker';
+import { ADD_TO_SCORE } from '../reducers/currentScore';
+import { ADD_TO_QUESTIONS_ASKED } from '../reducers/numberOfQuestionsAsked';
 import capitalize from '../helpers/capitalize';
 import shuffleArray from '../helpers/shuffleArray';
 
@@ -39,23 +40,14 @@ export const getAnswers = (correctBreed, allBreeds) => {
   };
 };
 
-export const scoreChecker = () => {
+export const addToScore = () => {
   return {
     type: ADD_TO_SCORE
   };
 };
 
-// export const checkIfCorrectAnswer = (clickedValue, correctBreed) => {
-//   if (clickedValue === correctBreed) {
-//     console.log('right');
-//     return {
-//       type:
-//     }
-//   } else {
-//     console.log('wrong');
-//   }
-
-//   return {
-//     type:
-//   }
-// };
+export const addToNumberOfQuestionsAsked = () => {
+  return {
+    type: ADD_TO_QUESTIONS_ASKED
+  };
+};
