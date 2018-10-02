@@ -18,16 +18,23 @@ export const setCorrectBreed = breedUrl => ({
 });
 
 export const getAnswers = (correctBreed, allBreeds) => {
+  const breedsInArray = [correctBreed];
   const getRandomBreed = () =>
     allBreeds[Math.floor(Math.random() * allBreeds.length)];
+  // Create uniques
+  const pushUniqueBreed = () => {
+    const randomBreed = getRandomBreed();
+    if (!breedsInArray.includes(randomBreed)) {
+      return randomBreed;
+    }
+    return pushUniqueBreed();
+  };
+  breedsInArray.push(pushUniqueBreed());
+  breedsInArray.push(pushUniqueBreed());
 
   return {
     type: GET_ANSWERS,
-    payload: shuffleArray([
-      getRandomBreed(),
-      getRandomBreed(),
-      correctBreed
-    ]).map(breed => capitalize(breed))
+    payload: shuffleArray(breedsInArray).map(breed => capitalize(breed))
   };
 };
 
