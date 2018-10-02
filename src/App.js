@@ -12,7 +12,7 @@ import {
 
 import { Buttons } from './components/Buttons';
 import { Image } from './components/Image';
-import userFeedback from "./functions/userFeedback";
+import userFeedback from './functions/userFeedback';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -46,9 +46,12 @@ class App extends PureComponent {
     //   )
     // );
 
-    userFeedback(e.target.value.toLowerCase(), this.props.correctBreed.name, this.nextQuestion.bind(this));
+    userFeedback(
+      e.target.value.toLowerCase(),
+      this.props.correctBreed.name,
+      this.nextQuestion.bind(this)
+    );
   };
-
   render() {
     return (
       <div className="App">
