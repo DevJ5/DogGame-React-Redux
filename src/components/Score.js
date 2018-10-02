@@ -1,7 +1,14 @@
 import React from "react";
+import * as PropTypes from "prop-types";
 
-export default () => (
+const Score = props => (
   <div className={'Score'}>
-    <p>80%</p>
+    <p>{props.score}%</p>
   </div>
-)
+);
+
+Score.propTypes = {
+  score: PropTypes.number
+};
+
+export default Score

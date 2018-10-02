@@ -14,11 +14,11 @@ import {
   addToWinStreak,
   resetWinStreak
 } from './actions/AppActions';
+
 import gameLogic from './functions/gameLogic';
 import Header from './components/Header';
 import Score from "./components/Score";
 import StreakCounter from "./components/StreakCounter";
-import currentStreak from "./reducers/currentStreak";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -60,10 +60,11 @@ class App extends PureComponent {
   }
 
   calculateScore() {
-    return (
+    const score = (
       (this.props.currentScore / this.props.numberOfQuestionsAsked) *
       100
     ).toFixed(2);
+    return isNaN(score) ? 0 : score;
   }
 
   handleClick = e => {

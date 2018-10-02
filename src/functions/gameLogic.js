@@ -1,8 +1,5 @@
-import {
-  rightAnswerStyles,
-  wrongAnswersStyles,
-  defaultStyles
-} from './answerStyles'
+import './userFeedback'
+import userFeedback from "./userFeedback";
 
 export default (
   targetValue,
@@ -14,8 +11,10 @@ export default (
   resetWinStreak
 ) => {
 
-  const correctButton = document.getElementById('button-' + correct);
-  const wrongButton = document.getElementById('button-' + targetValue);
+  const userFeedBack = new userFeedback(
+    document.getElementById('button-' + correct),
+    document.getElementById('button-' + targetValue)
+  );
 
   incrementQuestionsAsked();
 
@@ -24,20 +23,20 @@ export default (
     incrementScore(); // dispatch the ADD_TO_SCORE
     incrementWinStreak();
 
-    rightAnswerStyles();
+    userFeedBack.rightAnswerStyles();
 
     setTimeout(() => {
-      defaultStyles(correctButton, wrongButton);
+      userFeedBack.defaultStyles();
 
       nextQuestion();
     }, 500);
   } else {
     // Show something red and wait 2 seconds before showing
     resetWinStreak();
-    wrongAnswersStyles(correctButton, wrongButton);
+    userFeedBack.wrongAnswersStyles();
 
     setTimeout(() => {
-      defaultStyles(correctButton, wrongButton);
+      userFeedBack.defaultStyles();
 
       nextQuestion();
     }, 2000);
