@@ -12,6 +12,7 @@ import {
 
 import { Buttons } from './components/Buttons';
 import { Image } from './components/Image';
+import userFeedback from "./functions/userFeedback";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -45,27 +46,7 @@ class App extends PureComponent {
     //   )
     // );
 
-    if (e.target.value.toLowerCase() === this.props.correctBreed.name) {
-      // Show something green
-      document.body.style.backgroundColor = 'green';
-      setTimeout(() => {
-        document.body.style.backgroundColor = 'white';
-        this.nextQuestion();
-      }, 500);
-    } else {
-      // Show something red and wait 2 seconds before showing
-      document.body.style.backgroundColor = 'red';
-      document.getElementById(
-        'button-' + this.props.correctBreed.name
-      ).style.background = 'green';
-      setTimeout(() => {
-        document.body.style.backgroundColor = 'white';
-        document.getElementById(
-          'button-' + this.props.correctBreed.name
-        ).UseVisualStyleBackColor = true;
-        this.nextQuestion();
-      }, 2000);
-    }
+    userFeedback(e.target.value.toLowerCase(), this.props.correctBreed.name, this.nextQuestion.bind(this));
   };
 
   render() {
