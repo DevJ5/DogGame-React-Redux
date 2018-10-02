@@ -8,12 +8,15 @@ import {
   setAllBreeds,
   setCorrectBreed,
   scoreChecker,
-  currentStreak
+  currentStreak,
+  addToScore,
+  addToNumberOfQuestionsAsked
 } from './actions/AppActions';
 
 import { Buttons } from './components/Buttons';
 import { Image } from './components/Image';
 import userFeedback from './functions/userFeedback';
+import Header from "./components/Header";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -37,37 +40,38 @@ class App extends PureComponent {
   nextQuestion() {
     this.getQuestion();
   }
+
   incrementQuestionsAsked() {
-    this.props.dispatch(scoreChecker());
+    this.props.dispatch(addToNumberOfQuestionsAsked());
+  }
+
+  incrementScore() {
+    this.props.dispatch(addToScore());
   }
 
   incrementCurrentStreak(){
     this.props.dispatch(currentStreak())
   }
 
-cleanWinStreak(){
-  this.props.dispatch()
-}
+  cleanWinStreak(){
+    this.props.dispatch()
+  }
 
   handleClick = e => {
     e.preventDefault();
-    // this.props.dispatch(
-    //   checkIfCorrectAnswer(
-    //     e.target.value.toLowerCase(),
-    //     this.props.correctBreed.name
-    //   )
-    // );
-
     userFeedback(
       e.target.value.toLowerCase(),
       this.props.correctBreed.name,
       this.nextQuestion.bind(this),
+      this.incrementScore.bind(this),
       this.incrementQuestionsAsked.bind(this)
     );
   };
+
   render() {
     return (
       <div className="App">
+        <Header />
         {this.props.correctBreed && (
           <Image correctBreed={this.props.correctBreed} />
         )}
