@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Score from '../components/scores/Score';
+import Score from '../components/Score';
 import { connect } from 'react-redux';
 
 class ScoreContainer extends Component {

@@ -69,6 +69,31 @@ class App extends PureComponent {
     this.props.dispatch(addTenCoins())
   }
 
+  WrongButton(userFeedBack) {
+    this.resetWinStreak();
+    userFeedBack.wrongAnswersStyles();
+
+    setTimeout(() => {
+      userFeedBack.defaultStyles();
+
+      this.nextQuestion();
+    }, 2000);
+  }
+
+  RightButton(userFeedBack) {
+    this.incrementScore();
+    this.incrementWinStreak();
+    this.addTenCoins();
+
+    userFeedBack.rightAnswerStyles();
+
+    setTimeout(() => {
+      userFeedBack.defaultStyles();
+
+      this.nextQuestion();
+    }, 750);
+  }
+
   handleClick = e => {
     e.preventDefault();
 
@@ -83,32 +108,9 @@ class App extends PureComponent {
     this.addToShownBreeds(correctBreed);
 
     if (targetValue === correctBreed) {
-
-      // Correct answer given -> Show something green
-      this.incrementScore();
-      this.incrementWinStreak();
-      this.addTenCoins();
-
-      userFeedBack.rightAnswerStyles();
-
-      setTimeout(() => {
-        userFeedBack.defaultStyles();
-
-        this.nextQuestion();
-      }, 750);
-
+      this.RightButton(userFeedBack);
     } else {
-
-      // Wrong answer given -> Show something red and wait 2 seconds
-      this.resetWinStreak();
-      userFeedBack.wrongAnswersStyles();
-
-      setTimeout(() => {
-        userFeedBack.defaultStyles();
-
-        this.nextQuestion();
-      }, 2000);
-
+      this.WrongButton(userFeedBack);
     }
 
   };

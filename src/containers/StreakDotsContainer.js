@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from "react-redux";
-import StreakDots from "../components/scores/StreakDots";
+import StreakDots from "../components/StreakDots";
 
 class StreakDotsContainer extends Component {
   render() {
