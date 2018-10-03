@@ -4,6 +4,7 @@ import { GET_ANSWERS } from '../reducers/answers';
 import { ADD_TO_SCORE } from '../reducers/score/currentScore';
 import { ADD_TO_QUESTIONS_ASKED } from '../reducers/score/numberOfQuestionsAsked';
 import { ADD_TO_STREAK, RESET_STREAK } from '../reducers/currentStreak';
+import { ADD_SHOWN_BREED } from "../reducers/shownBreeds";
 
 export const setAllBreeds = breeds => ({
   type: SET_BREEDS,
@@ -37,4 +38,9 @@ export const addToWinStreak = () => ({
 
 export const resetWinStreak = () => ({
   type: RESET_STREAK
+});
+
+export const addShownBreeds = breed => ({
+  type: ADD_SHOWN_BREED,
+  payload: breed
 });
