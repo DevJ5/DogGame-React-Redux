@@ -13,10 +13,10 @@ import {
   setCorrectBreed
 } from './actions/AppActions';
 
-import gameLogic from './functions/gameLogic';
 import Header from './components/Header';
 import Game from './components/Game';
 import Footer from './components/Footer';
+import userFeedback from "./functions/userFeedback";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -60,18 +60,39 @@ class App extends PureComponent {
   handleClick = e => {
     e.preventDefault();
 
-    gameLogic(
-      e.target.value.toLowerCase(),
-      this.props.correctBreed.name,
-
-      this.nextQuestion.bind(this),
-
-      this.incrementScore.bind(this),
-      this.incrementQuestionsAsked.bind(this),
-
-      this.incrementWinStreak.bind(this),
-      this.resetWinStreak.bind(this)
+    const correctBreed = this.props.correctBreed.name;
+    const targetValue = e.target.value.toLowerCase();
+    const userFeedBack = new userFeedback(
+      document.getElementById('button-' + correctBreed),
+      document.getElementById('button-' + targetValue)
     );
+
+    this.incrementQuestionsAsked();
+
+    if (targetValue === correctBreed) {
+      // Correct answer given -> Show something green
+      this.incrementScore();
+      this.incrementWinStreak();
+
+      userFeedBack.rightAnswerStyles();
+
+      setTimeout(() => {
+        userFeedBack.defaultStyles();
+
+        this.nextQuestion();
+      }, 500);
+    } else {
+      // Wrong answer given -> Show something red and wait 2 seconds
+      this.resetWinStreak();
+      userFeedBack.wrongAnswersStyles();
+
+      setTimeout(() => {
+        userFeedBack.defaultStyles();
+
+        this.nextQuestion();
+      }, 2000);
+    }
+
   };
 
   render() {
