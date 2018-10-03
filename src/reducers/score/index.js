@@ -1,4 +1,4 @@
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 import currentScore from "./currentScore";
 import numberOfQuestionsAsked from "./numberOfQuestionsAsked";
 
