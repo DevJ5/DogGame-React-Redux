@@ -1,8 +1,7 @@
 import './App.css';
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import request from 'superagent';
-import Footer from './components/Footer';
 
 import {
   addToNumberOfQuestionsAsked,
@@ -16,7 +15,8 @@ import {
 
 import gameLogic from './functions/gameLogic';
 import Header from './components/Header';
-import Game from "./components/Game";
+import Game from './components/Game';
+import Footer from './components/Footer';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -28,13 +28,13 @@ class App extends PureComponent {
 
   getQuestion() {
     request
-    .get('https://dog.ceo/api/breeds/image/random')
-    .then(res => this.props.dispatch(setCorrectBreed(res.body.message)))
-    .then(() => {
-      this.props.dispatch(
-        getAnswers(this.props.correctBreed.name, this.props.allBreeds)
-      );
-    });
+      .get('https://dog.ceo/api/breeds/image/random')
+      .then(res => this.props.dispatch(setCorrectBreed(res.body.message)))
+      .then(() => {
+        this.props.dispatch(
+          getAnswers(this.props.correctBreed.name, this.props.allBreeds)
+        );
+      });
   }
 
   nextQuestion() {
@@ -76,19 +76,16 @@ class App extends PureComponent {
 
   render() {
     return (
-      <div className={'App'}>
-        <Header/>
-        <Game onClick={this.handleClick} />
-        <Footer/>
+      <div className="App">
+        <Header />
+        <Game handleClick={this.handleClick} />
+        <Footer />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({
-                           correctBreed,
-                           allBreeds
-                         }) => ({
+const mapStateToProps = ({ correctBreed, allBreeds }) => ({
   correctBreed,
   allBreeds
 });

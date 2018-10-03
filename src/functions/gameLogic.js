@@ -1,26 +1,25 @@
-import './userFeedback'
-import userFeedback from "./userFeedback";
+import './userFeedback';
+import userFeedback from './userFeedback';
 
 export default (
   targetValue,
-  correct,
+  correctBreed,
   nextQuestion,
   incrementScore,
   incrementQuestionsAsked,
   incrementWinStreak,
   resetWinStreak
 ) => {
-
   const userFeedBack = new userFeedback(
-    document.getElementById('button-' + correct),
+    document.getElementById('button-' + correctBreed),
     document.getElementById('button-' + targetValue)
   );
 
   incrementQuestionsAsked();
 
-  if (targetValue === correct) {
-    // Show something green
-    incrementScore(); // dispatch the ADD_TO_SCORE
+  if (targetValue === correctBreed) {
+    // Correct answer given -> Show something green
+    incrementScore();
     incrementWinStreak();
 
     userFeedBack.rightAnswerStyles();
@@ -31,7 +30,7 @@ export default (
       nextQuestion();
     }, 500);
   } else {
-    // Show something red and wait 2 seconds before showing
+    // Wrong answer given -> Show something red and wait 2 seconds
     resetWinStreak();
     userFeedBack.wrongAnswersStyles();
 
