@@ -19,7 +19,6 @@ export function Game(props) {
 }
 
 Game.propTypes = {
-  correctBreed: PropTypes.any,
   answers: PropTypes.any,
   onClick: PropTypes.func,
   streak: PropTypes.any

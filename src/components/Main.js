@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
-import {Image} from "./Image";
 import {Buttons} from "./Buttons";
 import * as PropTypes from "prop-types";
 
 import '../styles/main.css'
+import ImageContainer from '../containers/ImageContainer';
 
 export class Main extends Component {
   render() {
     return (
       <div className={'Main'}>
-        {this.props.correctBreed && (
-          <Image correctBreed={this.props.correctBreed}/>
+          <ImageContainer />
         )}
         {this.props.answers.length > 0 && (
           <Buttons answers={this.props.answers} onClick={this.props.onClick}/>
