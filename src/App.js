@@ -10,7 +10,7 @@ import {
   resetWinStreak,
   setAllBreeds,
   setCorrectBreed,
-  addShownBreeds
+  addShownBreeds, addTenCoins
 } from './actions/AppActions';
 
 import userFeedback from "./functions/userFeedback";
@@ -22,6 +22,7 @@ import { Neck } from "./components/Neck";
 import { Movie } from "./components/Movie";
 
 class App extends PureComponent {
+
   componentDidMount() {
     request.get('https://dog.ceo/api/breeds/list/all').then(res => {
       this.props.dispatch(setAllBreeds(res.body.message));
@@ -64,6 +65,10 @@ class App extends PureComponent {
     this.props.dispatch(addShownBreeds(correctBreedName))
   }
 
+  addTenCoins() {
+    this.props.dispatch(addTenCoins())
+  }
+
   handleClick = e => {
     e.preventDefault();
 
@@ -82,6 +87,7 @@ class App extends PureComponent {
       // Correct answer given -> Show something green
       this.incrementScore();
       this.incrementWinStreak();
+      this.addTenCoins();
 
       userFeedBack.rightAnswerStyles();
 

@@ -6,6 +6,7 @@ import answers from './answers'
 import score from './score/'
 import currentStreak from './currentStreak'
 import shownBreeds from './shownBreeds'
+import balance from './balance'
 
 export default combineReducers({
   allBreeds,
@@ -13,5 +14,6 @@ export default combineReducers({
   answers,
   score,
   currentStreak,
-  shownBreeds
+  shownBreeds,
+  balance
 });
