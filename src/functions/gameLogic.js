@@ -18,8 +18,8 @@ export default (
   incrementQuestionsAsked();
 
   if (targetValue === correctBreed) {
-    // Show something green
-    incrementScore(); // dispatch the ADD_TO_SCORE
+    // Correct answer given -> Show something green
+    incrementScore();
     incrementWinStreak();
 
     userFeedBack.rightAnswerStyles();
@@ -30,7 +30,7 @@ export default (
       nextQuestion();
     }, 500);
   } else {
-    // Show something red and wait 2 seconds before showing
+    // Wrong answer given -> Show something red and wait 2 seconds
     resetWinStreak();
     userFeedBack.wrongAnswersStyles();
 
