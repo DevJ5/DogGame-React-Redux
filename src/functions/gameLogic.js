@@ -1,24 +1,23 @@
-import './userFeedback'
-import userFeedback from "./userFeedback";
+import './userFeedback';
+import userFeedback from './userFeedback';
 
 export default (
   targetValue,
-  correct,
+  correctBreed,
   nextQuestion,
   incrementScore,
   incrementQuestionsAsked,
   incrementWinStreak,
   resetWinStreak
 ) => {
-
   const userFeedBack = new userFeedback(
-    document.getElementById('button-' + correct),
+    document.getElementById('button-' + correctBreed),
     document.getElementById('button-' + targetValue)
   );
 
   incrementQuestionsAsked();
 
-  if (targetValue === correct) {
+  if (targetValue === correctBreed) {
     // Show something green
     incrementScore(); // dispatch the ADD_TO_SCORE
     incrementWinStreak();

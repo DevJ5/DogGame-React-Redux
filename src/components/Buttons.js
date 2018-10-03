@@ -13,8 +13,7 @@ export function Buttons(props) {
           id={'button-' + answer.toLowerCase()}
           className={'default-button'}
           value={answer}
-          onClick={props.onClick}
-        >
+          onClick={props.handleClick}>
           {answer}
         </button>
       ))}

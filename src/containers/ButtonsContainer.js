@@ -5,7 +5,12 @@ import { connect } from 'react-redux';
 class ButtonsContainer extends Component {
   render() {
     return (
-      this.props.answers.length > 0 && <Buttons answers={this.props.answers} onClick={this.props.onClick} />
+      this.props.answers.length > 0 && (
+        <Buttons
+          answers={this.props.answers}
+          handleClick={this.props.handleClick}
+        />
+      )
     );
   }
 }
