@@ -9,7 +9,7 @@ class ScoreContainer extends Component {
     const score = parseInt((
       (this.props.currentScore / this.props.numberOfQuestionsAsked) *
       100
-    ).toFixed(2));
+    ).toFixed(2), 10);
     return isNaN(score) ? 0 : score;
   }
 

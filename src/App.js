@@ -16,7 +16,7 @@ import {
 
 import gameLogic from './functions/gameLogic';
 import Header from './components/Header';
-import {Game} from "./components/Game";
+import Game from "./components/Game";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -79,7 +79,7 @@ class App extends PureComponent {
       <div className={'App'}>
         <Header/>
         <Game correctBreed={this.props.correctBreed} answers={this.props.answers}
-              onClick={this.handleClick} streak={this.props.currentStreak}/>
+              onClick={this.handleClick} />
         <Footer/>
       </div>
     );
@@ -89,13 +89,11 @@ class App extends PureComponent {
 const mapStateToProps = ({
                            correctBreed,
                            answers,
-                           allBreeds,
-                           currentStreak
+                           allBreeds
                          }) => ({
   correctBreed,
   answers,
-  allBreeds,
-  currentStreak
+  allBreeds
 });
 
 export default connect(mapStateToProps)(App);
