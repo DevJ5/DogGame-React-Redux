@@ -1,25 +1,25 @@
-import ScoreContainer from "../containers/ScoreContainer";
-import {Main} from "./Main";
-import Streak from "./scores/Streak";
-import * as PropTypes from "prop-types";
-import React from "react";
+import React from 'react';
+import * as PropTypes from 'prop-types';
 
-import '../styles/scores.css'
+import { Main } from './Main';
 
-export function Game(props) {
-  return <div className={"Game"}>
-    <ScoreContainer />
-    <Main
-      correctBreed={props.correctBreed}
-      answers={props.answers}
-      onClick={props.onClick}
-    />
-    <Streak streak={props.streak}/>
-  </div>;
+import ScoreContainer from '../containers/ScoreContainer';
+import StreakContainer from '../containers/StreakContainer';
+
+import '../styles/scores.css';
+
+export default function Game(props) {
+  return (
+    <div className={'Game'}>
+      <ScoreContainer />
+      <Main
+        onClick={props.onClick}
+      />
+      <StreakContainer />
+    </div>
+  );
 }
 
 Game.propTypes = {
-  answers: PropTypes.any,
-  onClick: PropTypes.func,
-  streak: PropTypes.any
+  onClick: PropTypes.func
 };
