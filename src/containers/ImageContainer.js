@@ -7,7 +7,7 @@ class ImageContainer extends Component {
   render() {
     return this.props.correctBreed && (<Image correctBreed={this.props.correctBreed}/>)
   }
-};
+}
 
 const mapStateToProps = ({correctBreed}) => ({correctBreed});
 

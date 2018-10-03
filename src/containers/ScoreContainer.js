@@ -4,28 +4,15 @@ import { connect } from 'react-redux';
 
 class ScoreContainer extends Component {
   calculateScore() {
-
     const { currentScore, numberOfQuestionsAsked } = this.props.score;
-
-    const score = parseInt(
-      (
-        ( currentScore / numberOfQuestionsAsked ) *
-        100
-      ).toFixed(2),
-      10
-    );
+    const score = parseInt(((currentScore / numberOfQuestionsAsked) * 100).toFixed(2), 10);
     return isNaN(score) ? 0 : score;
   }
 
   render() {
-    return <Score score={this.calculateScore()} />;
+    return <Score score={this.calculateScore()}/>;
   }
 }
-
-// const mapStateToProps = ({ numberOfQuestionsAsked, currentScore }) => ({
-//   numberOfQuestionsAsked,
-//   currentScore
-// });
 
 const mapStateToProps = ({ score }) => ({ score });
 
