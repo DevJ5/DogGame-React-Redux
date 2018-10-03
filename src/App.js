@@ -57,14 +57,6 @@ class App extends PureComponent {
     this.props.dispatch(resetWinStreak());
   }
 
-  calculateScore() {
-    const score = parseInt((
-      (this.props.currentScore / this.props.numberOfQuestionsAsked) *
-      100
-    ).toFixed(2));
-    return isNaN(score) ? 0 : score;
-  }
-
   handleClick = e => {
     e.preventDefault();
 
@@ -86,7 +78,7 @@ class App extends PureComponent {
     return (
       <div className={'App'}>
         <Header/>
-        <Game score={this.calculateScore()} correctBreed={this.props.correctBreed} answers={this.props.answers}
+        <Game correctBreed={this.props.correctBreed} answers={this.props.answers}
               onClick={this.handleClick} streak={this.props.currentStreak}/>
         <Footer/>
       </div>
@@ -98,15 +90,11 @@ const mapStateToProps = ({
                            correctBreed,
                            answers,
                            allBreeds,
-                           currentScore,
-                           numberOfQuestionsAsked,
                            currentStreak
                          }) => ({
   correctBreed,
   answers,
   allBreeds,
-  currentScore,
-  numberOfQuestionsAsked,
   currentStreak
 });
 
