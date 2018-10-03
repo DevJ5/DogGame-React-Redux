@@ -3,6 +3,9 @@ import { Buttons } from '../components/Buttons';
 import { connect } from 'react-redux';
 
 class ButtonsContainer extends Component {
+
+
+
   render() {
     return (
       this.props.answers.length > 0 && (

@@ -9,7 +9,8 @@ import {
   getAnswers,
   resetWinStreak,
   setAllBreeds,
-  setCorrectBreed
+  setCorrectBreed,
+  addShownBreeds
 } from './actions/AppActions';
 
 import userFeedback from "./functions/userFeedback";
@@ -59,6 +60,10 @@ class App extends PureComponent {
     this.props.dispatch(resetWinStreak());
   }
 
+  addToShownBreeds(correctBreedName) {
+    this.props.dispatch(addShownBreeds(correctBreedName))
+  }
+
   handleClick = e => {
     e.preventDefault();
 
@@ -70,6 +75,7 @@ class App extends PureComponent {
     );
 
     this.incrementQuestionsAsked();
+    this.addToShownBreeds(correctBreed);
 
     if (targetValue === correctBreed) {
 

@@ -48,8 +48,16 @@ span {
 }
 
 .FreeHint, .PaidHint {
+  align-items: center;
   color: white;
   background: rgba(185, 132, 0, 0.7);
+  font-size: inherit;
+  border: none;
+}
+
+.FreeHint:disabled, .FreeHint:disabled:hover, .Button:disabled, .Button:disabled:hover {
+  background: rgba(165, 165, 165, 0.7);
+  cursor: not-allowed;
 }
 
 .FreeHint:hover, .PaidHint:hover {
