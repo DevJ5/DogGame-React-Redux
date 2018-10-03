@@ -2,10 +2,7 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 
 const Score = props => (
-  <div className="Score">
-    <p>score:</p>
-    <p>{props.score}%</p>
-  </div>
+  <div className="Score">{props.score}%</div>
 );
 
 Score.propTypes = {

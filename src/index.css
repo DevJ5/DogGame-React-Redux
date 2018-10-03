@@ -1,6 +1,159 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background: antiquewhite;
+
+}
+
+span {
+  margin: 0 10px;
+}
+
+.Container {
+  width: 50%;
+  margin: 60px auto;
+  font-size: 20px;
+  font-family: "Segoe UI", sans-serif;
+  box-shadow:0 0 10px rgba(0, 0, 0, 0.7);
+  background: rgba(185, 185, 185, 0.45);
+  border-radius: 20px;
+}
+
+.Header, .Neck {
+  display: flex;
+  background: rgba(185, 185, 185, 0.51);
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+.Header {
+  border-radius: 20px 20px 0 0;
+}
+
+.Score, .Balance, .FreeHint, .PaidHint {
+  /*color: #e5e5e5;*/
+  width: 15%;
+  background: rgba(185, 185, 185, 0.7);
+}
+
+.Score {
+  border-radius: 20px 0 0 0;
+}
+
+.Balance {
+  border-radius: 0 20px 0 0;
+}
+
+.Balance, .PaidHint, .FreeHint {
+  display: flex;
+  justify-content: center;
+}
+
+.FreeHint, .PaidHint {
+  color: white;
+  background: rgba(185, 132, 0, 0.7);
+}
+
+.FreeHint:hover, .PaidHint:hover {
+  cursor:pointer;
+  background: rgb(202, 169, 0);
+}
+
+.Title, .StreakBar {
+  width: 70%;
+}
+
+.ImageContainer {
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:0 0 1px rgba(0, 0, 0, 0.5) inset;
+}
+
+.Image img {
+  box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  height: 400px;
+  max-width: 700px;
+}
+
+.StreakBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.StreakDot {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.right {
+  background: green;
+  box-shadow:0 0 10px green;
+}
+
+.wrong {
+  background: red;
+  box-shadow:0 0 10px red;
+}
+
+.Answers{
+  height: 250px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.Button {
+  text-align: center;
+  line-height: 22px;
+
+  box-shadow: 0 10px 14px -7px #868686;
+  background-color: rgba(249, 249, 249, 0.5);
+  border-radius:8px;
+  display:inline-block;
+  cursor:pointer;
+  color:#242424;
+  padding:13px 32px;
+  text-decoration:none;
+  text-shadow:0 1px 0 #ffffff;
+
+  width: 600px;
+  height: 50px;
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.Button:hover {
+  background-color: rgba(233, 233, 233, 0.9);
+}
+
+.Button:active {
+  position:relative;
+  top:1px;
+}
+
+.right-image {
+  box-shadow:0 0 50px green;
+}
+
+.wrong-image {
+  box-shadow:0 0 50px red;
+}
+
+.right-button, .wrong-button {
+  color: white;
+}
+
+.right-button, .right-button:hover {
+  background-color: rgb(28, 152, 27);
+}
+
+.wrong-button, .wrong-button:hover {
+  background-color: rgb(174, 31, 32);
 }

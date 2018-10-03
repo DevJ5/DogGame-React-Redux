@@ -1,4 +1,3 @@
-import './App.css';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import request from 'superagent';
@@ -13,10 +12,13 @@ import {
   setCorrectBreed
 } from './actions/AppActions';
 
-import Header from './components/Header';
-import Game from './components/Game';
-import Footer from './components/Footer';
 import userFeedback from "./functions/userFeedback";
+import ImageContainer from "./containers/ImageContainer";
+import ButtonsContainer from "./containers/ButtonsContainer";
+
+import { Header } from "./components/Header";
+import { Neck } from "./components/Neck";
+import { Movie } from "./components/Movie";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -28,13 +30,13 @@ class App extends PureComponent {
 
   getQuestion() {
     request
-      .get('https://dog.ceo/api/breeds/image/random')
-      .then(res => this.props.dispatch(setCorrectBreed(res.body.message)))
-      .then(() => {
-        this.props.dispatch(
-          getAnswers(this.props.correctBreed.name, this.props.allBreeds)
-        );
-      });
+    .get('https://dog.ceo/api/breeds/image/random')
+    .then(res => this.props.dispatch(setCorrectBreed(res.body.message)))
+    .then(() => {
+      this.props.dispatch(
+        getAnswers(this.props.correctBreed.name, this.props.allBreeds)
+      );
+    });
   }
 
   nextQuestion() {
@@ -70,6 +72,7 @@ class App extends PureComponent {
     this.incrementQuestionsAsked();
 
     if (targetValue === correctBreed) {
+
       // Correct answer given -> Show something green
       this.incrementScore();
       this.incrementWinStreak();
@@ -80,8 +83,10 @@ class App extends PureComponent {
         userFeedBack.defaultStyles();
 
         this.nextQuestion();
-      }, 500);
+      }, 750);
+
     } else {
+
       // Wrong answer given -> Show something red and wait 2 seconds
       this.resetWinStreak();
       userFeedBack.wrongAnswersStyles();
@@ -91,16 +96,19 @@ class App extends PureComponent {
 
         this.nextQuestion();
       }, 2000);
+
     }
 
   };
 
   render() {
     return (
-      <div className="App">
-        <Header />
-        <Game handleClick={this.handleClick} />
-        <Footer />
+      <div className="Container">
+        <Movie/>
+        <Header/>
+        <ImageContainer/>
+        <Neck/>
+        <ButtonsContainer onClick={this.handleClick}/>
       </div>
     );
   }
