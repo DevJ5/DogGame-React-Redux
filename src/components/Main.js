@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Image } from './Image';
 import * as PropTypes from 'prop-types';
 
 import '../styles/main.css';

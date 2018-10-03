@@ -23,6 +23,6 @@ export function Buttons(props) {
 }
 
 Buttons.propTypes = {
-  answers: PropTypes.any,
+  answers: PropTypes.array,
   onClick: PropTypes.func
 };
