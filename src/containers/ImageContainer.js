@@ -1,14 +1,17 @@
-import React, {Component} from 'react'
-import {Image} from '../components/Image'
-import {connect} from "react-redux";
+import React, { Component } from 'react';
+import { Image } from '../components/Image';
+import { connect } from 'react-redux';
 
 class ImageContainer extends Component {
-
   render() {
-    return this.props.correctBreed && (<Image correctBreed={this.props.correctBreed}/>)
+    return (
+      this.props.correctBreedObj && (
+        <Image correctBreedObj={this.props.correctBreedObj} />
+      )
+    );
   }
 }
 
-const mapStateToProps = ({correctBreed}) => ({correctBreed});
+const mapStateToProps = ({ correctBreedObj }) => ({ correctBreedObj });
 
-export default connect(mapStateToProps)(ImageContainer)
+export default connect(mapStateToProps)(ImageContainer);

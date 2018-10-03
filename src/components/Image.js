@@ -5,16 +5,15 @@ export function Image(props) {
   return (
     <div className="ImageContainer">
       <div className="Image">
-        <img src={props.correctBreed.image}/>
+        <img src={props.correctBreedObj.image} alt="" />
       </div>
     </div>
-  )
+  );
 }
 
 Image.propTypes = {
-  correctBreed: PropTypes.shape({
+  correctBreedObj: PropTypes.shape({
     image: PropTypes.string,
     name: PropTypes.string
   })
 };
-
