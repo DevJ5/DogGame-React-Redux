@@ -1,19 +1,17 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
-import '../styles/buttons.css';
-
 export function Buttons(props) {
   // console.log(props.answers);
   return (
-    <div className={'buttons'}>
+    <div className={'Answers'}>
       {props.answers.map(answer => (
         <button
           key={answer}
           id={'button-' + answer.toLowerCase()}
-          className={'default-button'}
+          className={'Button'}
           value={answer}
-          onClick={props.handleClick}>
+          onClick={props.onClick}>
           {answer}
         </button>
       ))}

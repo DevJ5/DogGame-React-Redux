@@ -8,7 +8,7 @@ class ButtonsContainer extends Component {
       this.props.answers.length > 0 && (
         <Buttons
           answers={this.props.answers}
-          handleClick={this.props.handleClick}
+          onClick={this.props.onClick}
         />
       )
     );

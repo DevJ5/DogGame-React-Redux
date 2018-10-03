@@ -8,12 +8,12 @@ const StreakDots = props => {
     dots.push(
       <div
         key={i}
-        className={'StreakDots-' + (i < props.streak ? 'right' : 'wrong')}
+        className={'StreakDot ' + (i < props.streak ? 'right' : 'wrong')}
       />
     );
   }
 
-  return <div className={'StreakDots'}>{dots}</div>;
+  return <div className={'StreakBar'}>{dots}</div>;
 };
 
 StreakDots.propTypes = {

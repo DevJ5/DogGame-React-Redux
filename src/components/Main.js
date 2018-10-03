@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
 
-import '../styles/main.css';
 import ButtonsContainer from '../containers/ButtonsContainer';
 import ImageContainer from '../containers/ImageContainer';
 

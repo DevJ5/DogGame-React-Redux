@@ -6,9 +6,6 @@ import Main from './Main';
 import ScoreContainer from '../containers/ScoreContainer';
 import StreakContainer from '../containers/StreakContainer';
 
-import '../styles/scores.css';
-import '../styles/game.css';
-
 export default function Game(props) {
   return (
     <div className="Game">

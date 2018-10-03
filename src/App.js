@@ -1,4 +1,3 @@
-import './App.css';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import request from 'superagent';
@@ -13,10 +12,11 @@ import {
   setCorrectBreed
 } from './actions/AppActions';
 
-import Header from './components/Header';
-import Game from './components/Game';
-import Footer from './components/Footer';
 import userFeedback from "./functions/userFeedback";
+import { Header } from "./components/Header";
+import ImageContainer from "./containers/ImageContainer";
+import { Neck } from "./components/Neck";
+import ButtonsContainer from "./containers/ButtonsContainer";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -28,13 +28,13 @@ class App extends PureComponent {
 
   getQuestion() {
     request
-      .get('https://dog.ceo/api/breeds/image/random')
-      .then(res => this.props.dispatch(setCorrectBreed(res.body.message)))
-      .then(() => {
-        this.props.dispatch(
-          getAnswers(this.props.correctBreed.name, this.props.allBreeds)
-        );
-      });
+    .get('https://dog.ceo/api/breeds/image/random')
+    .then(res => this.props.dispatch(setCorrectBreed(res.body.message)))
+    .then(() => {
+      this.props.dispatch(
+        getAnswers(this.props.correctBreed.name, this.props.allBreeds)
+      );
+    });
   }
 
   nextQuestion() {
@@ -96,11 +96,21 @@ class App extends PureComponent {
   };
 
   render() {
+    // noinspection HtmlUnknownAttribute
     return (
-      <div className="App">
-        <Header />
-        <Game handleClick={this.handleClick} />
-        <Footer />
+      <div className="Container">
+        <div className="video-background">
+          <div className="video-foreground">
+            <iframe
+              src="https://www.youtube.com/embed/7ZIjkvdz4Ko?rel=0&controls=0&showinfo=0&;start=3;&autoplay=1;stop=.10"
+              allow="autoplay; encrypted-media"
+            />
+          </div>
+        </div>
+        <Header/>
+        <ImageContainer/>
+        <Neck/>
+        <ButtonsContainer onClick={this.handleClick}/>
       </div>
     );
   }
