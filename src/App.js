@@ -13,10 +13,12 @@ import {
 } from './actions/AppActions';
 
 import userFeedback from "./functions/userFeedback";
-import { Header } from "./components/Header";
 import ImageContainer from "./containers/ImageContainer";
-import { Neck } from "./components/Neck";
 import ButtonsContainer from "./containers/ButtonsContainer";
+
+import { Header } from "./components/Header";
+import { Neck } from "./components/Neck";
+import { Movie } from "./components/Movie";
 
 class App extends PureComponent {
   componentDidMount() {
@@ -70,6 +72,7 @@ class App extends PureComponent {
     this.incrementQuestionsAsked();
 
     if (targetValue === correctBreed) {
+
       // Correct answer given -> Show something green
       this.incrementScore();
       this.incrementWinStreak();
@@ -80,8 +83,10 @@ class App extends PureComponent {
         userFeedBack.defaultStyles();
 
         this.nextQuestion();
-      }, 500);
+      }, 750);
+
     } else {
+
       // Wrong answer given -> Show something red and wait 2 seconds
       this.resetWinStreak();
       userFeedBack.wrongAnswersStyles();
@@ -91,22 +96,15 @@ class App extends PureComponent {
 
         this.nextQuestion();
       }, 2000);
+
     }
 
   };
 
   render() {
-    // noinspection HtmlUnknownAttribute
     return (
       <div className="Container">
-        <div className="video-background">
-          <div className="video-foreground">
-            <iframe
-              src="https://www.youtube.com/embed/7ZIjkvdz4Ko?rel=0&controls=0&showinfo=0&;start=3;&autoplay=1;stop=.10"
-              allow="autoplay; encrypted-media"
-            />
-          </div>
-        </div>
+        <Movie/>
         <Header/>
         <ImageContainer/>
         <Neck/>

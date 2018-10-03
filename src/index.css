@@ -137,3 +137,23 @@ span {
   position:relative;
   top:1px;
 }
+
+.right-image {
+  box-shadow:0 0 50px green;
+}
+
+.wrong-image {
+  box-shadow:0 0 50px red;
+}
+
+.right-button, .wrong-button {
+  color: white;
+}
+
+.right-button, .right-button:hover {
+  background-color: rgb(28, 152, 27);
+}
+
+.wrong-button, .wrong-button:hover {
+  background-color: rgb(174, 31, 32);
+}
