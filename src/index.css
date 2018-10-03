@@ -55,7 +55,7 @@ span {
   border: none;
 }
 
-.FreeHint:disabled, .FreeHint:disabled:hover {
+.FreeHint:disabled, .FreeHint:disabled:hover, .Button:disabled, .Button:disabled:hover {
   background: rgba(165, 165, 165, 0.7);
   cursor: not-allowed;
 }

@@ -11,8 +11,12 @@ export function Buttons(props) {
           id={'button-' + answer.toLowerCase()}
           className={'Button'}
           value={answer}
-          onClick={props.onClick}>
-          {answer}
+          disabled={answer[0] === '_'}
+          onClick={props.onClick}
+        >
+
+          {answer[0] === '_' ? answer.substring(1) : answer}
+
         </button>
       ))}
     </div>
