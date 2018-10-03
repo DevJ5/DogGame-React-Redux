@@ -2,7 +2,7 @@ import React from "react";
 import '../styles/header.css'
 
 export default () => (
-  <header>
+  <header className={'Header'}>
     <p>Affenpinscher Liebhabern</p>
   </header>
 )
