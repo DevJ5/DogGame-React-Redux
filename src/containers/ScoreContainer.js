@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 
 class ScoreContainer extends Component {
   calculateScore() {
+
+    const { currentScore, numberOfQuestionsAsked } = this.props.score;
+
     const score = parseInt(
       (
-        (this.props.currentScore / this.props.numberOfQuestionsAsked) *
+        ( currentScore / numberOfQuestionsAsked ) *
         100
       ).toFixed(2),
       10
@@ -19,9 +22,11 @@ class ScoreContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ numberOfQuestionsAsked, currentScore }) => ({
-  numberOfQuestionsAsked,
-  currentScore
-});
+// const mapStateToProps = ({ numberOfQuestionsAsked, currentScore }) => ({
+//   numberOfQuestionsAsked,
+//   currentScore
+// });
+
+const mapStateToProps = ({ score }) => ({ score });
 
 export default connect(mapStateToProps)(ScoreContainer);

@@ -3,8 +3,13 @@ import React from 'react';
 import '../styles/image.css';
 
 export function Image(props) {
-  return <img className="Image" src={props.correctBreed.image} alt="" />;
+  return <img className="Image" src={props.correctBreed.image} alt=""/>;
 }
 
-Image.propTypes = { correctBreed: PropTypes.any };
+Image.propTypes = {
+  correctBreed: PropTypes.shape({
+    image: PropTypes.string,
+    name: PropTypes.string
+  })
+};
 
