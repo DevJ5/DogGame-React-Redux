@@ -13,8 +13,6 @@ export default function Game(props) {
     <div className={'Game'}>
       <ScoreContainer />
       <Main
-        correctBreed={props.correctBreed}
-        answers={props.answers}
         onClick={props.onClick}
       />
       <StreakContainer />
@@ -23,7 +21,5 @@ export default function Game(props) {
 }
 
 Game.propTypes = {
-  correctBreed: PropTypes.any,
-  answers: PropTypes.any,
   onClick: PropTypes.func
 };

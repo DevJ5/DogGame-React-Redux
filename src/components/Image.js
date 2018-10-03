@@ -7,3 +7,4 @@ export function Image(props) {
 }
 
 Image.propTypes = { correctBreed: PropTypes.any };
+

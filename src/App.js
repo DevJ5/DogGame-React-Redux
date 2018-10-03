@@ -78,8 +78,7 @@ class App extends PureComponent {
     return (
       <div className={'App'}>
         <Header/>
-        <Game correctBreed={this.props.correctBreed} answers={this.props.answers}
-              onClick={this.handleClick} />
+        <Game onClick={this.handleClick} />
         <Footer/>
       </div>
     );
@@ -88,11 +87,9 @@ class App extends PureComponent {
 
 const mapStateToProps = ({
                            correctBreed,
-                           answers,
                            allBreeds
                          }) => ({
   correctBreed,
-  answers,
   allBreeds
 });
 
