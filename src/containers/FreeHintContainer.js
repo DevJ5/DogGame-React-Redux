@@ -12,12 +12,12 @@ class FreeHintContainer extends Component {
   }
 
   isDisabled() {
-    return this.props.shownBreeds.includes(this.props.correctBreed.name);
+    return this.props.shownBreeds.includes(this.props.correctBreedObj.name);
   }
 
   handleClick = () => {
-    this.props.dispatch(freeHintAction(capitalize(this.props.correctBreed.name), this.props.answers));
-    this.addToShownBreeds(this.props.correctBreed.name);
+    this.props.dispatch(freeHintAction(capitalize(this.props.correctBreedObj.name), this.props.answers));
+    this.addToShownBreeds(this.props.correctBreedObj.name);
   };
 
   render() {
@@ -25,6 +25,6 @@ class FreeHintContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ shownBreeds, correctBreed, answers }) => ({ shownBreeds, correctBreed, answers });
+const mapStateToProps = ({ shownBreeds, correctBreedObj, answers }) => ({ shownBreeds, correctBreedObj, answers });
 
 export default connect(mapStateToProps)(FreeHintContainer)

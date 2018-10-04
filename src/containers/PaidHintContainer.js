@@ -11,7 +11,7 @@ class PaidHintContainer extends Component {
   }
 
   disableWrongButtons() {
-    this.props.dispatch(disableWrongButtons(capitalize(this.props.correctBreed.name), this.props.answers))
+    this.props.dispatch(disableWrongButtons(capitalize(this.props.correctBreedObj.name), this.props.answers))
   }
 
   handleClick = () => {
@@ -28,6 +28,6 @@ class PaidHintContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ balance, correctBreed, answers }) => ({ balance, correctBreed, answers });
+const mapStateToProps = ({ balance, correctBreedObj, answers }) => ({ balance, correctBreedObj, answers });
 
 export default connect(mapStateToProps)(PaidHintContainer)

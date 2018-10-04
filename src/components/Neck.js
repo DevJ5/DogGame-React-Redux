@@ -3,6 +3,7 @@ import StreakDotsContainer from "../containers/StreakDotsContainer";
 import FreeHintContainer from "../containers/FreeHintContainer";
 import PaidHintContainer from "../containers/PaidHintContainer";
 
+
 export function Neck() {
   return (
     <div className="Neck">

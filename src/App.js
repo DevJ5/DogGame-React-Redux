@@ -10,33 +10,34 @@ import {
   resetWinStreak,
   setAllBreeds,
   setCorrectBreed,
-  addShownBreeds, addTenCoins
+  addShownBreeds,
+  addTenCoins,
+  getAllBreeds
 } from './actions/AppActions';
 
-import userFeedback from "./functions/userFeedback";
-import ImageContainer from "./containers/ImageContainer";
-import ButtonsContainer from "./containers/ButtonsContainer";
+import userFeedback from './functions/userFeedback';
+import ImageContainer from './containers/ImageContainer';
+import ButtonsContainer from './containers/ButtonsContainer';
 
-import { Header } from "./components/Header";
-import { Neck } from "./components/Neck";
-import { Movie } from "./components/Movie";
+import { Header } from './components/Header';
+import { Neck } from './components/Neck';
+import { Movie } from './components/Movie';
 
 class App extends PureComponent {
 
   componentDidMount() {
-    request.get('https://dog.ceo/api/breeds/list/all').then(res => {
-      this.props.dispatch(setAllBreeds(res.body.message));
-    });
+    this.props.getAllBreeds();
     this.getQuestion();
   }
 
   getQuestion() {
     request
     .get('https://dog.ceo/api/breeds/image/random')
-    .then(res => this.props.dispatch(setCorrectBreed(res.body.message)))
+    .then(res => this.props.setCorrectBreed(res.body.message))
     .then(() => {
-      this.props.dispatch(
-        getAnswers(this.props.correctBreed.name, this.props.allBreeds)
+      this.props.getAnswers(
+        this.props.correctBreedObj.name,
+        this.props.allBreeds
       );
     });
   }
@@ -45,28 +46,29 @@ class App extends PureComponent {
     this.getQuestion();
   }
 
+  // Actions
   incrementQuestionsAsked() {
-    this.props.dispatch(addToNumberOfQuestionsAsked());
+    this.props.addToNumberOfQuestionsAsked();
   }
 
   incrementScore() {
-    this.props.dispatch(addToScore());
+    this.props.addToScore();
   }
 
   incrementWinStreak() {
-    this.props.dispatch(addToWinStreak());
+    this.props.addToWinStreak();
   }
 
   resetWinStreak() {
-    this.props.dispatch(resetWinStreak());
+    this.props.resetWinStreak();
   }
 
   addToShownBreeds(correctBreedName) {
-    this.props.dispatch(addShownBreeds(correctBreedName))
+    this.props.addShownBreeds(correctBreedName);
   }
 
   addTenCoins() {
-    this.props.dispatch(addTenCoins())
+    this.props.addTenCoins()
   }
 
   WrongButton(userFeedBack) {
@@ -97,7 +99,7 @@ class App extends PureComponent {
   handleClick = e => {
     e.preventDefault();
 
-    const correctBreed = this.props.correctBreed.name;
+    const correctBreed = this.props.correctBreedObj.name;
     const targetValue = e.target.value.toLowerCase();
     const userFeedBack = new userFeedback(
       document.getElementById('button-' + correctBreed),
@@ -112,7 +114,6 @@ class App extends PureComponent {
     } else {
       this.WrongButton(userFeedBack);
     }
-
   };
 
   render() {
@@ -128,9 +129,22 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ correctBreed, allBreeds }) => ({
-  correctBreed,
+const mapStateToProps = ({ correctBreedObj, allBreeds }) => ({
+  correctBreedObj,
   allBreeds
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  addToNumberOfQuestionsAsked,
+  addToScore,
+  addToWinStreak,
+  getAnswers,
+  resetWinStreak,
+  setAllBreeds,
+  setCorrectBreed,
+  getAllBreeds,
+  addShownBreeds,
+  addTenCoins
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
