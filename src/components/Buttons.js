@@ -1,22 +1,18 @@
-import * as PropTypes from 'prop-types';
-import React from 'react';
+import * as PropTypes from "prop-types";
+import React from "react";
 
 export function Buttons(props) {
-  // console.log(props.answers);
   return (
-    <div className={'Answers'}>
-      {props.answers.map(answer => (
+    <div className={"Answers"}>
+      {props.answers.map((answer, i) => (
         <button
           key={answer}
-          id={'button-' + answer.toLowerCase()}
-          className={'Button'}
+          id={"button-" + answer.toLowerCase()}
+          className={"Button " + i}
           value={answer}
-          disabled={answer[0] === '_'}
-          onClick={props.onClick}
-        >
-
-          {answer[0] === '_' ? answer.substring(1) : answer}
-
+          disabled={answer[0] === "_"}
+          onClick={props.onClick}>
+          {answer[0] === "_" ? answer.substring(1) : answer}
         </button>
       ))}
     </div>
