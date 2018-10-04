@@ -12,7 +12,7 @@ span {
 }
 
 .Container {
-  width: 50%;
+  width: 70%;
   margin: 60px auto;
   font-size: 20px;
   font-family: "Segoe UI", sans-serif;
@@ -94,6 +94,28 @@ span {
   border-radius: 10px;
   height: 400px;
   max-width: 700px;
+}
+
+.three-images-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.three-images-container img {
+  box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  height: 200px;
+  max-width: 300px;
+  margin: 2%;
+  cursor: pointer;
+}
+
+.question-container  {
+  padding-bottom: 40px;
+}
+
+.question-container h3 {
+  text-align: center;
 }
 
 .StreakBar {

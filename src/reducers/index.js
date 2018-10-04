@@ -7,8 +7,9 @@ import score from "./score/";
 import currentStreak from "./currentStreak";
 import shownBreeds from "./shownBreeds";
 import balance from "./balance";
+import threeImages from "./threeImages";
+import gameVariation from "./gameVariation";
 import keyHandling from "./keyHandeling";
-
 export default combineReducers({
   allBreeds,
   correctBreedObj,
@@ -17,5 +18,7 @@ export default combineReducers({
   currentStreak,
   shownBreeds,
   balance,
+  threeImages,
+  gameVariation,
   keyHandling
 });
