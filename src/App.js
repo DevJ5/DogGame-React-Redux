@@ -10,8 +10,9 @@ import {
   resetWinStreak,
   setAllBreeds,
   setCorrectBreed,
-  getAllBreeds,
-  addShownBreeds
+  addShownBreeds,
+  addTenCoins,
+  getAllBreeds
 } from './actions/AppActions';
 
 import userFeedback from './functions/userFeedback';
@@ -23,6 +24,7 @@ import { Neck } from './components/Neck';
 import { Movie } from './components/Movie';
 
 class App extends PureComponent {
+
   componentDidMount() {
     this.props.getAllBreeds();
     this.getQuestion();
@@ -30,14 +32,14 @@ class App extends PureComponent {
 
   getQuestion() {
     request
-      .get('https://dog.ceo/api/breeds/image/random')
-      .then(res => this.props.setCorrectBreed(res.body.message))
-      .then(() => {
-        this.props.getAnswers(
-          this.props.correctBreedObj.name,
-          this.props.allBreeds
-        );
-      });
+    .get('https://dog.ceo/api/breeds/image/random')
+    .then(res => this.props.setCorrectBreed(res.body.message))
+    .then(() => {
+      this.props.getAnswers(
+        this.props.correctBreedObj.name,
+        this.props.allBreeds
+      );
+    });
   }
 
   nextQuestion() {
@@ -60,12 +62,40 @@ class App extends PureComponent {
   resetWinStreak() {
     this.props.resetWinStreak();
   }
-  
-    addToShownBreeds(correctBreedName) {
-    this.props.dispatch(addShownBreeds(correctBreedName))
+
+  addToShownBreeds(correctBreedName) {
+    this.props.addShownBreeds(correctBreedName);
   }
 
-  // On Button click
+  addTenCoins() {
+    this.props.addTenCoins()
+  }
+
+  WrongButton(userFeedBack) {
+    this.resetWinStreak();
+    userFeedBack.wrongAnswersStyles();
+
+    setTimeout(() => {
+      userFeedBack.defaultStyles();
+
+      this.nextQuestion();
+    }, 2000);
+  }
+
+  RightButton(userFeedBack) {
+    this.incrementScore();
+    this.incrementWinStreak();
+    this.addTenCoins();
+
+    userFeedBack.rightAnswerStyles();
+
+    setTimeout(() => {
+      userFeedBack.defaultStyles();
+
+      this.nextQuestion();
+    }, 750);
+  }
+
   handleClick = e => {
     e.preventDefault();
 
@@ -80,38 +110,20 @@ class App extends PureComponent {
     this.addToShownBreeds(correctBreed);
 
     if (targetValue === correctBreed) {
-      // Correct answer given -> Show something green
-      this.incrementScore();
-      this.incrementWinStreak();
-
-      userFeedBack.rightAnswerStyles();
-
-      setTimeout(() => {
-        userFeedBack.defaultStyles();
-
-        this.nextQuestion();
-      }, 750);
+      this.RightButton(userFeedBack);
     } else {
-      // Wrong answer given -> Show something red and wait 2 seconds
-      this.resetWinStreak();
-      userFeedBack.wrongAnswersStyles();
-
-      setTimeout(() => {
-        userFeedBack.defaultStyles();
-
-        this.nextQuestion();
-      }, 2000);
+      this.WrongButton(userFeedBack);
     }
   };
 
   render() {
     return (
       <div className="Container">
-        <Movie />
-        <Header />
-        <ImageContainer />
-        <Neck />
-        <ButtonsContainer onClick={this.handleClick} />
+        <Movie/>
+        <Header/>
+        <ImageContainer/>
+        <Neck/>
+        <ButtonsContainer onClick={this.handleClick}/>
       </div>
     );
   }
@@ -122,16 +134,17 @@ const mapStateToProps = ({ correctBreedObj, allBreeds }) => ({
   allBreeds
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    addToNumberOfQuestionsAsked,
-    addToScore,
-    addToWinStreak,
-    getAnswers,
-    resetWinStreak,
-    setAllBreeds,
-    setCorrectBreed,
-    getAllBreeds
-  }
-)(App);
+const mapDispatchToProps = {
+  addToNumberOfQuestionsAsked,
+  addToScore,
+  addToWinStreak,
+  getAnswers,
+  resetWinStreak,
+  setAllBreeds,
+  setCorrectBreed,
+  getAllBreeds,
+  addShownBreeds,
+  addTenCoins
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

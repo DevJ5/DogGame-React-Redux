@@ -5,6 +5,7 @@ import { ADD_TO_SCORE } from '../reducers/score/currentScore';
 import { ADD_TO_QUESTIONS_ASKED } from '../reducers/score/numberOfQuestionsAsked';
 import { ADD_TO_STREAK, RESET_STREAK } from '../reducers/currentStreak';
 import { ADD_SHOWN_BREED } from "../reducers/shownBreeds";
+import { ADD_TEN_COINS } from "../reducers/balance";
 
 import request from 'superagent';
 
@@ -55,3 +56,6 @@ export const addShownBreeds = breed => ({
   payload: breed
 });
 
+export const addTenCoins = () => ({
+  type: ADD_TEN_COINS
+});
