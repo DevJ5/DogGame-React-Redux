@@ -27,8 +27,7 @@ import { Movie } from './components/Movie';
 class App extends PureComponent {
   componentDidMount() {
     this.props.getAllBreeds();
-    this.getQuestion();
-    this.getThreeRandomImages();
+    this.nextQuestion();
   }
 
   getThreeRandomImages() {
@@ -50,7 +49,9 @@ class App extends PureComponent {
   }
 
   nextQuestion() {
-    this.getQuestion();
+    const styleBool = Math.floor(Math.random() * 2);
+    this.props.gameStyle(styleBool);
+    styleBool ? this.getQuestion() : this.getThreeRandomImages();
   }
 
   // Actions
@@ -127,19 +128,20 @@ class App extends PureComponent {
   render() {
     return (
       <div className="Container">
-        <Movie />
+        {/*<Movie />*/}
         <Header />
-        <ImageContainer />
+        {this.props.gameStyleBool ? <ImageContainer /> : <ImageAsAnswers />}
         <Neck />
-        <ButtonsContainer onClick={this.handleClick} />
+        {this.props.gameStyleBool ? <ButtonsContainer onClick={this.handleClick} /> : <OnlyTextAsQuestion />}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ correctBreedObj, allBreeds }) => ({
+const mapStateToProps = ({ correctBreedObj, allBreeds, gameStyleBool }) => ({
   correctBreedObj,
-  allBreeds
+  allBreeds,
+  gameStyleBool
 });
 
 const mapDispatchToProps = {
