@@ -9,20 +9,23 @@ import {
   getAnswers,
   resetWinStreak,
   setAllBreeds,
-  setCorrectBreed,
+  setCorrectBreedGameUno,
   addShownBreeds,
   addTenCoins,
   getAllBreeds,
-  getThreeRandomImages
+  getThreeRandomImages,
+  setGameVariation
 } from './actions/AppActions';
 
 import userFeedback from './functions/userFeedback';
 import ImageContainer from './containers/ImageContainer';
+import ThreeImagesContainer from './containers/ThreeImagesContainer';
 import ButtonsContainer from './containers/ButtonsContainer';
+import QuestionContainer from './containers/QuestionContainer';
 
 import { Header } from './components/Header';
 import { Neck } from './components/Neck';
-import { Movie } from './components/Movie';
+//import { Movie } from './components/Movie';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -30,16 +33,10 @@ class App extends PureComponent {
     this.nextQuestion();
   }
 
-  getThreeRandomImages() {
-    request.get('https://dog.ceo/api/breeds/image/random/3').then(res => {
-      this.props.getThreeRandomImages(res.body.message);
-    });
-  }
-
-  getQuestion() {
+  getOneRandomImage() {
     request
       .get('https://dog.ceo/api/breeds/image/random')
-      .then(res => this.props.setCorrectBreed(res.body.message))
+      .then(res => this.props.setCorrectBreedGameUno(res.body.message))
       .then(() => {
         this.props.getAnswers(
           this.props.correctBreedObj.name,
@@ -48,10 +45,16 @@ class App extends PureComponent {
       });
   }
 
+  getThreeRandomImages() {
+    request.get('https://dog.ceo/api/breeds/image/random/3').then(res => {
+      this.props.getThreeRandomImages(res.body.message);
+    });
+  }
+
   nextQuestion() {
-    const styleBool = Math.floor(Math.random() * 2);
-    this.props.gameStyle(styleBool);
-    styleBool ? this.getQuestion() : this.getThreeRandomImages();
+    const gameVariationBool = Math.floor(Math.random() * 2);
+    this.props.setGameVariation(gameVariationBool);
+    gameVariationBool ? this.getOneRandomImage() : this.getThreeRandomImages();
   }
 
   // Actions
@@ -104,7 +107,8 @@ class App extends PureComponent {
     }, 750);
   }
 
-  handleClick = e => {
+  // Event Handlers
+  handleButtonClick = e => {
     e.preventDefault();
     console.log(e);
 
@@ -125,23 +129,56 @@ class App extends PureComponent {
     }
   };
 
+  handleImageClick = e => {
+    const correctBreed = this.props.threeImages.correctBreed;
+    if (e.target.getAttribute('value') === correctBreed) {
+      console.log('You won');
+      this.incrementScore();
+      this.incrementWinStreak();
+      this.addTenCoins();
+      setTimeout(() => {
+        this.nextQuestion();
+      }, 500);
+    } else {
+      console.log('You Lost');
+      this.resetWinStreak();
+      setTimeout(() => {
+        this.nextQuestion();
+      }, 2000);
+    }
+  };
+
   render() {
     return (
       <div className="Container">
         {/*<Movie />*/}
         <Header />
-        {this.props.gameStyleBool ? <ImageContainer /> : <ImageAsAnswers />}
+        {this.props.gameVariation ? (
+          <ImageContainer />
+        ) : (
+          <ThreeImagesContainer onClick={this.handleImageClick} />
+        )}
         <Neck />
-        {this.props.gameStyleBool ? <ButtonsContainer onClick={this.handleClick} /> : <OnlyTextAsQuestion />}
+        {this.props.gameVariation ? (
+          <ButtonsContainer onClick={this.handleButtonClick} />
+        ) : (
+          <QuestionContainer />
+        )}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ correctBreedObj, allBreeds, gameStyleBool }) => ({
+const mapStateToProps = ({
   correctBreedObj,
   allBreeds,
-  gameStyleBool
+  threeImages,
+  gameVariation
+}) => ({
+  correctBreedObj,
+  allBreeds,
+  threeImages,
+  gameVariation
 });
 
 const mapDispatchToProps = {
@@ -151,11 +188,12 @@ const mapDispatchToProps = {
   getAnswers,
   resetWinStreak,
   setAllBreeds,
-  setCorrectBreed,
+  setCorrectBreedGameUno,
   getAllBreeds,
   addShownBreeds,
   addTenCoins,
-  getThreeRandomImages
+  getThreeRandomImages,
+  setGameVariation
 };
 
 export default connect(

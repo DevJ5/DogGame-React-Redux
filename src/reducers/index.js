@@ -8,6 +8,7 @@ import currentStreak from './currentStreak';
 import shownBreeds from './shownBreeds';
 import balance from './balance';
 import threeImages from './threeImages';
+import gameVariation from './gameVariation';
 
 export default combineReducers({
   allBreeds,
@@ -17,5 +18,6 @@ export default combineReducers({
   currentStreak,
   shownBreeds,
   balance,
-  threeImages
+  threeImages,
+  gameVariation
 });
