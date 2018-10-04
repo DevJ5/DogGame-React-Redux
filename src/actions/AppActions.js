@@ -1,11 +1,12 @@
 import { SET_BREEDS } from '../reducers/allBreeds';
+import { GET_THREE_IMAGES } from '../reducers/threeImages';
 import { SET_CORRECT_BREED } from '../reducers/correctBreed';
 import { GET_ANSWERS } from '../reducers/answers';
 import { ADD_TO_SCORE } from '../reducers/score/currentScore';
 import { ADD_TO_QUESTIONS_ASKED } from '../reducers/score/numberOfQuestionsAsked';
 import { ADD_TO_STREAK, RESET_STREAK } from '../reducers/currentStreak';
-import { ADD_SHOWN_BREED } from "../reducers/shownBreeds";
-import { ADD_TEN_COINS } from "../reducers/balance";
+import { ADD_SHOWN_BREED } from '../reducers/shownBreeds';
+import { ADD_TEN_COINS } from '../reducers/balance';
 
 import request from 'superagent';
 
@@ -16,6 +17,11 @@ export const getAllBreeds = () => {
     });
   };
 };
+
+export const getThreeRandomImages = threeImages => ({
+  type: GET_THREE_IMAGES,
+  payload: threeImages
+});
 
 export const setAllBreeds = breeds => ({
   type: SET_BREEDS,
