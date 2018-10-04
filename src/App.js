@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import request from 'superagent';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import request from "superagent";
 
 import {
   addToNumberOfQuestionsAsked,
@@ -12,34 +12,37 @@ import {
   setCorrectBreed,
   addShownBreeds,
   addTenCoins,
-  getAllBreeds
-} from './actions/AppActions';
+  getAllBreeds,
+  keyHandling
+} from "./actions/AppActions";
 
-import userFeedback from './functions/userFeedback';
-import ImageContainer from './containers/ImageContainer';
-import ButtonsContainer from './containers/ButtonsContainer';
+import userFeedback from "./functions/userFeedback";
+import ImageContainer from "./containers/ImageContainer";
+import ButtonsContainer from "./containers/ButtonsContainer";
 
-import { Header } from './components/Header';
-import { Neck } from './components/Neck';
-import { Movie } from './components/Movie';
+import { Header } from "./components/Header";
+import { Neck } from "./components/Neck";
+import { Movie } from "./components/Movie";
 
+let isButtonOnFocus = false;
 class App extends PureComponent {
-
   componentDidMount() {
+    document.getElementsByClassName("0").click;
+    window.addEventListener("keyup", e => this.keyHandling(e));
     this.props.getAllBreeds();
     this.getQuestion();
   }
 
   getQuestion() {
     request
-    .get('https://dog.ceo/api/breeds/image/random')
-    .then(res => this.props.setCorrectBreed(res.body.message))
-    .then(() => {
-      this.props.getAnswers(
-        this.props.correctBreedObj.name,
-        this.props.allBreeds
-      );
-    });
+      .get("https://dog.ceo/api/breeds/image/random")
+      .then(res => this.props.setCorrectBreed(res.body.message))
+      .then(() => {
+        this.props.getAnswers(
+          this.props.correctBreedObj.name,
+          this.props.allBreeds
+        );
+      });
   }
 
   nextQuestion() {
@@ -68,7 +71,16 @@ class App extends PureComponent {
   }
 
   addTenCoins() {
-    this.props.addTenCoins()
+    this.props.addTenCoins();
+  }
+  keyHandling(e) {
+    if (!isButtonOnFocus) {
+      const focusThis = document.getElementsByClassName("0");
+      return (isButtonOnFocus = true);
+    } else {
+      const codeOfKey = e.keyCode;
+      this.props.keyHandling(codeOfKey);
+    }
   }
 
   WrongButton(userFeedBack) {
@@ -102,8 +114,8 @@ class App extends PureComponent {
     const correctBreed = this.props.correctBreedObj.name;
     const targetValue = e.target.value.toLowerCase();
     const userFeedBack = new userFeedback(
-      document.getElementById('button-' + correctBreed),
-      document.getElementById('button-' + targetValue)
+      document.getElementById("button-" + correctBreed),
+      document.getElementById("button-" + targetValue)
     );
 
     this.incrementQuestionsAsked();
@@ -119,11 +131,11 @@ class App extends PureComponent {
   render() {
     return (
       <div className="Container">
-        <Movie/>
-        <Header/>
-        <ImageContainer/>
-        <Neck/>
-        <ButtonsContainer onClick={this.handleClick}/>
+        <Movie />
+        <Header />
+        <ImageContainer />
+        <Neck />
+        <ButtonsContainer onClick={this.handleClick} />
       </div>
     );
   }
@@ -144,7 +156,11 @@ const mapDispatchToProps = {
   setCorrectBreed,
   getAllBreeds,
   addShownBreeds,
-  addTenCoins
+  addTenCoins,
+  keyHandling
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

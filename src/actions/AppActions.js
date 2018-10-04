@@ -1,17 +1,18 @@
-import { SET_BREEDS } from '../reducers/allBreeds';
-import { SET_CORRECT_BREED } from '../reducers/correctBreed';
-import { GET_ANSWERS } from '../reducers/answers';
-import { ADD_TO_SCORE } from '../reducers/score/currentScore';
-import { ADD_TO_QUESTIONS_ASKED } from '../reducers/score/numberOfQuestionsAsked';
-import { ADD_TO_STREAK, RESET_STREAK } from '../reducers/currentStreak';
+import { SET_BREEDS } from "../reducers/allBreeds";
+import { SET_CORRECT_BREED } from "../reducers/correctBreed";
+import { GET_ANSWERS } from "../reducers/answers";
+import { ADD_TO_SCORE } from "../reducers/score/currentScore";
+import { ADD_TO_QUESTIONS_ASKED } from "../reducers/score/numberOfQuestionsAsked";
+import { ADD_TO_STREAK, RESET_STREAK } from "../reducers/currentStreak";
 import { ADD_SHOWN_BREED } from "../reducers/shownBreeds";
 import { ADD_TEN_COINS } from "../reducers/balance";
+import { HANDLE_THE_KEY } from "../reducers/keyHandeling";
 
-import request from 'superagent';
+import request from "superagent";
 
 export const getAllBreeds = () => {
   return function(dispatch) {
-    request.get('https://dog.ceo/api/breeds/list/all').then(res => {
+    request.get("https://dog.ceo/api/breeds/list/all").then(res => {
       dispatch(setAllBreeds(res.body.message));
     });
   };
@@ -58,4 +59,9 @@ export const addShownBreeds = breed => ({
 
 export const addTenCoins = () => ({
   type: ADD_TEN_COINS
+});
+
+export const keyHandling = e => ({
+  type: HANDLE_THE_KEY,
+  payload: e
 });

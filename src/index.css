@@ -32,6 +32,9 @@ span {
 .Header {
   border-radius: 20px 20px 0 0;
 }
+.Button:focus{
+  background-color: red;
+}
 
 .Score, .Balance, .FreeHint, .PaidHint {
   /*color: #e5e5e5;*/
