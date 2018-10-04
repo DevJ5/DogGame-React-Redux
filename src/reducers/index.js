@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 
-
 import allBreeds from './allBreeds';
 import correctBreedObj from './correctBreed';
 import answers from './answers';
 import score from './score/';
 import currentStreak from './currentStreak';
-import shownBreeds from './shownBreeds'
-import balance from './balance'
+import shownBreeds from './shownBreeds';
+import balance from './balance';
+import threeImages from './threeImages';
 
 export default combineReducers({
   allBreeds,
@@ -16,5 +16,6 @@ export default combineReducers({
   score,
   currentStreak,
   shownBreeds,
-  balance
+  balance,
+  threeImages
 });

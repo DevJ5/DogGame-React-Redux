@@ -12,7 +12,8 @@ import {
   setCorrectBreed,
   addShownBreeds,
   addTenCoins,
-  getAllBreeds
+  getAllBreeds,
+  getThreeRandomImages
 } from './actions/AppActions';
 
 import userFeedback from './functions/userFeedback';
@@ -24,22 +25,28 @@ import { Neck } from './components/Neck';
 import { Movie } from './components/Movie';
 
 class App extends PureComponent {
-
   componentDidMount() {
     this.props.getAllBreeds();
     this.getQuestion();
+    this.getThreeRandomImages();
+  }
+
+  getThreeRandomImages() {
+    request.get('https://dog.ceo/api/breeds/image/random/3').then(res => {
+      this.props.getThreeRandomImages(res.body.message);
+    });
   }
 
   getQuestion() {
     request
-    .get('https://dog.ceo/api/breeds/image/random')
-    .then(res => this.props.setCorrectBreed(res.body.message))
-    .then(() => {
-      this.props.getAnswers(
-        this.props.correctBreedObj.name,
-        this.props.allBreeds
-      );
-    });
+      .get('https://dog.ceo/api/breeds/image/random')
+      .then(res => this.props.setCorrectBreed(res.body.message))
+      .then(() => {
+        this.props.getAnswers(
+          this.props.correctBreedObj.name,
+          this.props.allBreeds
+        );
+      });
   }
 
   nextQuestion() {
@@ -68,7 +75,7 @@ class App extends PureComponent {
   }
 
   addTenCoins() {
-    this.props.addTenCoins()
+    this.props.addTenCoins();
   }
 
   WrongButton(userFeedBack) {
@@ -98,6 +105,7 @@ class App extends PureComponent {
 
   handleClick = e => {
     e.preventDefault();
+    console.log(e);
 
     const correctBreed = this.props.correctBreedObj.name;
     const targetValue = e.target.value.toLowerCase();
@@ -119,11 +127,11 @@ class App extends PureComponent {
   render() {
     return (
       <div className="Container">
-        <Movie/>
-        <Header/>
-        <ImageContainer/>
-        <Neck/>
-        <ButtonsContainer onClick={this.handleClick}/>
+        <Movie />
+        <Header />
+        <ImageContainer />
+        <Neck />
+        <ButtonsContainer onClick={this.handleClick} />
       </div>
     );
   }
@@ -144,7 +152,11 @@ const mapDispatchToProps = {
   setCorrectBreed,
   getAllBreeds,
   addShownBreeds,
-  addTenCoins
+  addTenCoins,
+  getThreeRandomImages
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
