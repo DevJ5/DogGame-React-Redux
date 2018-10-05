@@ -7,6 +7,7 @@ import {
   addToScore,
   addToWinStreak,
   getAnswers,
+  getAnswersFromImages,
   resetWinStreak,
   setAllBreeds,
   setCorrectBreedGameUno,
@@ -54,15 +55,16 @@ class App extends PureComponent {
     request.get("https://dog.ceo/api/breeds/image/random/3")
     .then(res => this.props.getThreeRandomImages(res.body.message))
     .then(() => {
-      this.props.setCorrectBreedGameDos(this.props.threeImages)
+      this.props.setCorrectBreedGameDos(this.props.threeImages);
+      this.props.getAnswersFromImages(this.props.threeImages)
     });
   }
 
   nextQuestion() {
-    const gameVariationBool = Math.floor(Math.random() * 2);
+    // const gameVariationBool = Math.floor(Math.random() * 2);
 
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
-    // /** DEV DEV DEV DEV */ const gameVariationBool = false;
+    /** DEV DEV DEV DEV */ const gameVariationBool = false;
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
 
     this.props.setGameVariation(gameVariationBool);
@@ -134,7 +136,7 @@ class App extends PureComponent {
     console.log(e);
 
     const correctBreed = this.props.correctBreedObj.name;
-    const targetValue = e.target.value.toLowerCase();
+    const targetValue = e.target.value;
     const userFeedBack = new userFeedback(
       document.getElementById("button-" + correctBreed),
       document.getElementById("button-" + targetValue)
@@ -209,6 +211,7 @@ const mapDispatchToProps = {
   addToScore,
   addToWinStreak,
   getAnswers,
+  getAnswersFromImages,
   resetWinStreak,
   setAllBreeds,
   setCorrectBreedGameUno,

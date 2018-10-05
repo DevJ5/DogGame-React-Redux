@@ -1,7 +1,7 @@
 import { SET_BREEDS } from "../reducers/allBreeds";
 import { GET_THREE_IMAGES } from "../reducers/threeImages";
 import { SET_CORRECT_BREED, SET_CORRECT_BREED_FROM_IMAGES } from "../reducers/correctBreed";
-import { GET_ANSWERS } from "../reducers/answers";
+import { GET_ANSWERS, GET_ANSWERS_FROM_IMAGES } from "../reducers/answers";
 import { SET_GAME_VARIATION } from "../reducers/gameVariation";
 import { ADD_TO_SCORE } from "../reducers/score/currentScore";
 import { ADD_TO_QUESTIONS_ASKED } from "../reducers/score/numberOfQuestionsAsked";
@@ -46,6 +46,11 @@ export const getAnswers = (correctBreed, allBreeds) => ({
     correctBreed,
     allBreeds
   }
+});
+
+export const getAnswersFromImages = (breedImages) => ({
+  type: GET_ANSWERS_FROM_IMAGES,
+  payload: breedImages
 });
 
 export const setGameVariation = bool => ({

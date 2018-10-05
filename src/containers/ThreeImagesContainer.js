@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import extractBreedName from "../helpers/extractBreedName";
 
 class ThreeImagesContainer extends Component {
-
-  extractBreedName = imageUrl => {
-    return imageUrl.split('/')[4].split('-')[0];
-  };
 
   render() {
     return (
       <div className="three-images-container">
         {this.props.threeImages &&
-          this.props.threeImages.map(image => (
+          this.props.threeImages.map((image, index) => (
             <img
               className=""
               onClick={this.props.onClick}
               src={image}
-              value={this.extractBreedName(image)}
+              value={extractBreedName(image)}
               alt=""
             />
           ))}
@@ -25,6 +22,6 @@ class ThreeImagesContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ threeImages }) => ({ threeImages });
+const mapStateToProps = ({ threeImages, answers }) => ({ threeImages, answers });
 
 export default connect(mapStateToProps)(ThreeImagesContainer);
