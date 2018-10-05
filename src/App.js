@@ -131,6 +131,8 @@ class App extends PureComponent {
 
   handleImageClick = e => {
     const correctBreed = this.props.threeImages.correctBreed;
+    this.incrementQuestionsAsked();
+    this.addToShownBreeds(correctBreed);
     if (e.target.getAttribute('value') === correctBreed) {
       console.log('You won');
       this.incrementScore();
@@ -138,7 +140,7 @@ class App extends PureComponent {
       this.addTenCoins();
       setTimeout(() => {
         this.nextQuestion();
-      }, 500);
+      }, 750);
     } else {
       console.log('You Lost');
       this.resetWinStreak();
