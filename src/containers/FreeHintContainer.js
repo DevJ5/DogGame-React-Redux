@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import { connect } from "react-redux";
 import FreeHint from "../components/FreeHint";
 import { freeHintAction } from "../actions/FreeHintActions";
-import capitalize from "../helpers/capitalize";
 import { addShownBreeds } from "../actions/AppActions";
 
 class FreeHintContainer extends Component {
@@ -16,7 +15,7 @@ class FreeHintContainer extends Component {
   }
 
   handleClick = () => {
-    this.props.dispatch(freeHintAction(capitalize(this.props.correctBreedObj.name), this.props.answers));
+    this.props.dispatch(freeHintAction(this.props.correctBreedObj.name, this.props.answers));
     this.addToShownBreeds(this.props.correctBreedObj.name);
   };
 

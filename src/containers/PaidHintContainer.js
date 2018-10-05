@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PaidHint from "../components/PaidHint";
 import { connect } from "react-redux";
 import { disableWrongButtons, payFiftyCoins } from "../actions/PaidHintActions";
-import capitalize from "../helpers/capitalize";
 
 class PaidHintContainer extends Component {
 
@@ -11,7 +10,7 @@ class PaidHintContainer extends Component {
   }
 
   disableWrongButtons() {
-    this.props.dispatch(disableWrongButtons(capitalize(this.props.correctBreedObj.name), this.props.answers))
+    this.props.dispatch(disableWrongButtons(this.props.correctBreedObj.name, this.props.answers))
   }
 
   handleClick = () => {

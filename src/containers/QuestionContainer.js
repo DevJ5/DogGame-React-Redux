@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import capitalize from "../helpers/capitalize";
 
 class QuestionContainer extends Component {
   render() {
     return (
-      this.props.threeImages && (
+      this.props.correctBreedObj && (
         <div className="question-container">
           <h3 className="threep1bh3">
             Which picture contains a{" "}
             <mark class="threeBreed">
-              {this.props.threeImages.correctBreed.charAt(0).toUpperCase() +
-                this.props.threeImages.correctBreed.slice(1)}
+              {capitalize(this.props.correctBreedObj.name)}
             </mark>
             ?
           </h3>
@@ -20,6 +20,6 @@ class QuestionContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ threeImages }) => ({ threeImages });
+const mapStateToProps = ({ correctBreedObj }) => ({ correctBreedObj });
 
 export default connect(mapStateToProps)(QuestionContainer);

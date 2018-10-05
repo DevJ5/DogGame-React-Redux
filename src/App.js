@@ -7,15 +7,19 @@ import {
   addToScore,
   addToWinStreak,
   getAnswers,
+  getAnswersFromImages,
   resetWinStreak,
   setAllBreeds,
   setCorrectBreedGameUno,
+  setCorrectBreedGameDos,
   addShownBreeds,
   addTenCoins,
   getAllBreeds,
   getThreeRandomImages,
   setGameVariation,
-  keyHandling
+  keyHandling,
+  addThreeUniques,
+  addImagesToTempSelectedBreeds
 } from "./actions/AppActions";
 
 import userFeedback from "./functions/userFeedback";
@@ -30,12 +34,46 @@ import { Movie } from "./components/Movie";
 
 let focusIndex = null;
 let currentButton;
-
 class App extends PureComponent {
   componentDidMount() {
-    window.addEventListener("keydown", e => this.keyHandling(e));
+    document.getElementsByClassName("0").click;
+    window.addEventListener("keyup", e => this.keyHandling(e));
     this.props.getAllBreeds();
-    this.nextQuestion();
+    request
+      .get("https://dog.ceo/api/breeds/list/all")
+      .then(res => {
+        this.props.setAllBreeds(res.body.message);
+      })
+      .then(() =>
+        this.props.addThreeUniques(
+          this.props.allBreeds,
+          this.props.selectedBreeds
+        )
+      )
+      .then(() => {
+        this.props.addImagesToTempSelectedBreeds(this.props.tempSelectedBreeds);
+      })
+      .then(() => this.nextQuestion());
+  }
+
+  gameEins() {
+    setTimeout(() => {
+      const index = Math.floor(
+        Math.random() * this.props.selectedBreeds.length
+      );
+      const correctBreed = this.props.selectedBreeds[index];
+      const correctImage =
+        correctBreed.images[
+          Math.floor(Math.random() * correctBreed.images.length)
+        ];
+
+      this.props.setCorrectBreedGameUno(correctImage);
+
+      this.props.getAnswers(
+        correctBreed.name,
+        this.props.selectedBreeds.map(breed => breed.name)
+      );
+    }, 1000);
   }
 
   getOneRandomImage() {
@@ -51,15 +89,27 @@ class App extends PureComponent {
   }
 
   getThreeRandomImages() {
-    request.get("https://dog.ceo/api/breeds/image/random/3").then(res => {
-      this.props.getThreeRandomImages(res.body.message);
-    });
+    request
+      .get("https://dog.ceo/api/breeds/image/random/3")
+      .then(res => this.props.getThreeRandomImages(res.body.message))
+      .then(() => {
+        this.props.setCorrectBreedGameDos(this.props.threeImages);
+        this.props.getAnswersFromImages(this.props.threeImages);
+      });
   }
 
   nextQuestion() {
     const gameVariationBool = Math.floor(Math.random() * 2);
+
+    /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
+    // /** DEV DEV DEV DEV */ const gameVariationBool = true;
+    /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
+
     this.props.setGameVariation(gameVariationBool);
-    gameVariationBool ? this.getOneRandomImage() : this.getThreeRandomImages();
+    gameVariationBool
+      ? // ? this.getOneRandomImage()
+        this.gameEins()
+      : this.getThreeRandomImages();
     focusIndex = null;
     currentButton = null;
   }
@@ -88,6 +138,7 @@ class App extends PureComponent {
   addTenCoins() {
     this.props.addTenCoins();
   }
+
   keyHandling(e) {
     e.preventDefault();
     const codeOfKey = e.keyCode;
@@ -150,6 +201,14 @@ class App extends PureComponent {
     setTimeout(() => {
       userFeedBack.defaultStyles();
 
+      if (this.props.currentStreak === 10) {
+        this.props.addThreeUniques(
+          this.props.allBreeds,
+          this.props.selectedBreeds
+        );
+        this.props.addImagesToTempSelectedBreeds(this.props.tempSelectedBreeds);
+      }
+
       this.nextQuestion();
     }, 750);
   }
@@ -160,7 +219,7 @@ class App extends PureComponent {
     console.log(e);
 
     const correctBreed = this.props.correctBreedObj.name;
-    const targetValue = e.target.value.toLowerCase();
+    const targetValue = e.target.value;
     const userFeedBack = new userFeedback(
       document.getElementById("button-" + correctBreed),
       document.getElementById("button-" + targetValue)
@@ -175,23 +234,36 @@ class App extends PureComponent {
       this.WrongButton(userFeedBack);
     }
   };
+  rightAnswerImage(correctImage) {
+    this.incrementScore();
+    this.incrementWinStreak();
+    this.addTenCoins();
+    setTimeout(() => {
+      this.nextQuestion();
+      correctImage.className = "three-images-hover";
+    }, 750);
+  }
+
+  wrongAnswerImage(correctImage) {
+    this.resetWinStreak();
+    setTimeout(() => {
+      this.nextQuestion();
+      correctImage.className = "three-images-hover";
+    }, 2000);
+  }
 
   handleImageClick = e => {
-    const correctBreed = this.props.threeImages.correctBreed;
+    const correctBreed = this.props.correctBreedObj.name;
+    const correctImage = document.getElementById("img-" + correctBreed);
+    correctImage.className = "correct-img";
+
+    this.incrementQuestionsAsked();
+    this.addToShownBreeds(correctBreed);
+
     if (e.target.getAttribute("value") === correctBreed) {
-      console.log("You won");
-      this.incrementScore();
-      this.incrementWinStreak();
-      this.addTenCoins();
-      setTimeout(() => {
-        this.nextQuestion();
-      }, 500);
+      this.rightAnswerImage(correctImage);
     } else {
-      console.log("You Lost");
-      this.resetWinStreak();
-      setTimeout(() => {
-        this.nextQuestion();
-      }, 2000);
+      this.wrongAnswerImage(correctImage);
     }
   };
 
@@ -220,12 +292,18 @@ const mapStateToProps = ({
   correctBreedObj,
   allBreeds,
   threeImages,
-  gameVariation
+  gameVariation,
+  tempSelectedBreeds,
+  selectedBreeds,
+  currentStreak
 }) => ({
   correctBreedObj,
   allBreeds,
   threeImages,
-  gameVariation
+  gameVariation,
+  tempSelectedBreeds,
+  selectedBreeds,
+  currentStreak
 });
 
 const mapDispatchToProps = {
@@ -233,15 +311,19 @@ const mapDispatchToProps = {
   addToScore,
   addToWinStreak,
   getAnswers,
+  getAnswersFromImages,
   resetWinStreak,
   setAllBreeds,
   setCorrectBreedGameUno,
+  setCorrectBreedGameDos,
   getAllBreeds,
   addShownBreeds,
   addTenCoins,
   keyHandling,
   getThreeRandomImages,
-  setGameVariation
+  setGameVariation,
+  addThreeUniques,
+  addImagesToTempSelectedBreeds
 };
 
 export default connect(

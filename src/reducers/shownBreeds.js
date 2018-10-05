@@ -4,7 +4,7 @@ export default (state = [], action ={}) => {
   switch (action.type) {
 
     case ADD_SHOWN_BREED:
-      return [...state, action.payload];
+      return state.includes(action.payload) ? state : [...state, action.payload];
 
     default:
       return state;
