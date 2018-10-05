@@ -10,6 +10,7 @@ import {
   resetWinStreak,
   setAllBreeds,
   setCorrectBreedGameUno,
+  setCorrectBreedGameDos,
   addShownBreeds,
   addTenCoins,
   getAllBreeds,
@@ -50,13 +51,20 @@ class App extends PureComponent {
   }
 
   getThreeRandomImages() {
-    request.get("https://dog.ceo/api/breeds/image/random/3").then(res => {
-      this.props.getThreeRandomImages(res.body.message);
+    request.get("https://dog.ceo/api/breeds/image/random/3")
+    .then(res => this.props.getThreeRandomImages(res.body.message))
+    .then(() => {
+      this.props.setCorrectBreedGameDos(this.props.threeImages)
     });
   }
 
   nextQuestion() {
     const gameVariationBool = Math.floor(Math.random() * 2);
+
+    /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
+    // /** DEV DEV DEV DEV */ const gameVariationBool = false;
+    /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
+
     this.props.setGameVariation(gameVariationBool);
     gameVariationBool ? this.getOneRandomImage() : this.getThreeRandomImages();
   }
@@ -143,7 +151,7 @@ class App extends PureComponent {
   };
 
   handleImageClick = e => {
-    const correctBreed = this.props.threeImages.correctBreed;
+    const correctBreed = this.props.correctBreedObj.name;
     this.incrementQuestionsAsked();
     this.addToShownBreeds(correctBreed);
     if (e.target.getAttribute('value') === correctBreed) {
@@ -166,7 +174,7 @@ class App extends PureComponent {
   render() {
     return (
       <div className="Container">
-        <Movie />
+        {/*<Movie />*/}
         <Header />
         {this.props.gameVariation ? (
           <ImageContainer />
@@ -204,6 +212,7 @@ const mapDispatchToProps = {
   resetWinStreak,
   setAllBreeds,
   setCorrectBreedGameUno,
+  setCorrectBreedGameDos,
   getAllBreeds,
   addShownBreeds,
   addTenCoins,
