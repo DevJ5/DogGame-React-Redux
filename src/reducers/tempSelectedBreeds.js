@@ -4,9 +4,10 @@ export default (state = [], action = {}) => {
   switch (action.type) {
     case ADD_THREE_UNIQUES:
       // receive all breeds and transform into 3 unique breeds
-      const allBreeds = action.payload;
-      console.log(allBreeds);
-      const breedsInArray = [];
+      const { allBreeds, selectedBreeds } = action.payload;
+
+      console.log(selectedBreeds);
+      const breedsInArray = selectedBreeds;
       const getRandomBreed = () =>
         allBreeds[Math.floor(Math.random() * allBreeds.length)];
       // Create uniques
@@ -20,7 +21,7 @@ export default (state = [], action = {}) => {
       breedsInArray.push(pushUniqueBreed());
       breedsInArray.push(pushUniqueBreed());
       breedsInArray.push(pushUniqueBreed());
-      return breedsInArray;
+      return [...breedsInArray];
 
     default:
       return state;

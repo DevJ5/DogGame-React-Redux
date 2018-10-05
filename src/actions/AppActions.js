@@ -13,7 +13,9 @@ import { ADD_SHOWN_BREED } from '../reducers/shownBreeds';
 import { ADD_TEN_COINS } from '../reducers/balance';
 import { HANDLE_THE_KEY } from '../reducers/keyHandeling';
 import { ADD_THREE_UNIQUES } from '../reducers/tempSelectedBreeds';
-import { ADD_TO_SELECTED_BREEDS } from '../reducers/selectedBreeds';
+import selectedBreeds, {
+  ADD_TO_SELECTED_BREEDS
+} from '../reducers/selectedBreeds';
 
 import request from 'superagent';
 
@@ -93,10 +95,13 @@ export const keyHandling = e => ({
   payload: e
 });
 
-export const addThreeUniques = allBreeds => {
+export const addThreeUniques = (allBreeds, selectedBreeds) => {
   return {
     type: ADD_THREE_UNIQUES,
-    payload: allBreeds
+    payload: {
+      allBreeds,
+      selectedBreeds
+    }
   };
 };
 

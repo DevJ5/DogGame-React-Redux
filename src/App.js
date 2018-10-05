@@ -44,11 +44,36 @@ class App extends PureComponent {
       .then(res => {
         this.props.setAllBreeds(res.body.message);
       })
-      .then(() => this.props.addThreeUniques(this.props.allBreeds))
+      .then(() =>
+        this.props.addThreeUniques(
+          this.props.allBreeds,
+          this.props.selectedBreeds
+        )
+      )
       .then(() => {
         this.props.addImagesToTempSelectedBreeds(this.props.tempSelectedBreeds);
-      });
-    this.nextQuestion();
+      })
+      .then(() => this.nextQuestion());
+  }
+
+  gameEins() {
+    setTimeout(() => {
+      const index = Math.floor(
+        Math.random() * this.props.selectedBreeds.length
+      );
+      const correctBreed = this.props.selectedBreeds[index];
+      const correctImage =
+        correctBreed.images[
+          Math.floor(Math.random() * correctBreed.images.length)
+        ];
+
+      this.props.setCorrectBreedGameUno(correctImage);
+
+      this.props.getAnswers(
+        correctBreed.name,
+        this.props.selectedBreeds.map(breed => breed.name)
+      );
+    }, 1000);
   }
 
   getOneRandomImage() {
@@ -77,11 +102,14 @@ class App extends PureComponent {
     const gameVariationBool = Math.floor(Math.random() * 2);
 
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
-    // /** DEV DEV DEV DEV */ const gameVariationBool = false;
+    // /** DEV DEV DEV DEV */ const gameVariationBool = true;
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
 
     this.props.setGameVariation(gameVariationBool);
-    gameVariationBool ? this.getOneRandomImage() : this.getThreeRandomImages();
+    gameVariationBool
+      ? // ? this.getOneRandomImage()
+        this.gameEins()
+      : this.getThreeRandomImages();
   }
 
   // Actions
@@ -139,6 +167,14 @@ class App extends PureComponent {
 
     setTimeout(() => {
       userFeedBack.defaultStyles();
+
+      if (this.props.currentStreak === 10) {
+        this.props.addThreeUniques(
+          this.props.allBreeds,
+          this.props.selectedBreeds
+        );
+        this.props.addImagesToTempSelectedBreeds(this.props.tempSelectedBreeds);
+      }
 
       this.nextQuestion();
     }, 750);
@@ -224,13 +260,17 @@ const mapStateToProps = ({
   allBreeds,
   threeImages,
   gameVariation,
-  tempSelectedBreeds
+  tempSelectedBreeds,
+  selectedBreeds,
+  currentStreak
 }) => ({
   correctBreedObj,
   allBreeds,
   threeImages,
   gameVariation,
-  tempSelectedBreeds
+  tempSelectedBreeds,
+  selectedBreeds,
+  currentStreak
 });
 
 const mapDispatchToProps = {
