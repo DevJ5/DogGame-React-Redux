@@ -63,10 +63,10 @@ class App extends PureComponent {
   }
 
   nextQuestion() {
-    // const gameVariationBool = Math.floor(Math.random() * 2);
+    const gameVariationBool = Math.floor(Math.random() * 2);
 
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
-    /** DEV DEV DEV DEV */ const gameVariationBool = false;
+    // /** DEV DEV DEV DEV */ const gameVariationBool = false;
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
 
     this.props.setGameVariation(gameVariationBool);

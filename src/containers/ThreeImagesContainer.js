@@ -7,17 +7,24 @@ class ThreeImagesContainer extends Component {
   render() {
     return (
       <div className="three-images-container">
-        {this.props.threeImages &&
-          this.props.threeImages.map((image, index) => (
+        {this.props.threeImages && this.props.answers.length > 0 &&
+        this.props.threeImages.map((image, index) => {
+
+          const disabled = this.props.answers[index][0] === '_';
+          const className = "three-images-hover" + (disabled ? " disabled-image" : "");
+          const onClick = disabled ? null : this.props.onClick;
+
+          return (
             <img
               id={'img-' + extractBreedName(image)}
-              className="three-images-hover"
-              onClick={this.props.onClick}
+              className={className}
+              onClick={onClick}
               src={image}
               value={extractBreedName(image)}
               alt=""
             />
-          ))}
+          )
+        })}
       </div>
     );
   }
