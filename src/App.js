@@ -7,6 +7,7 @@ import {
   addToScore,
   addToWinStreak,
   getAnswers,
+  getAnswersFromImages,
   resetWinStreak,
   setAllBreeds,
   setCorrectBreedGameUno,
@@ -30,39 +31,42 @@ import { Neck } from './components/Neck';
 //import { Movie } from './components/Movie';
 
 let isButtonOnFocus = false;
+
 class App extends PureComponent {
   componentDidMount() {
-    window.addEventListener('keyup', e => this.keyHandling(e));
+    document.getElementsByClassName("0").click;
+    window.addEventListener("keyup", e => this.keyHandling(e));
     this.props.getAllBreeds();
     this.nextQuestion();
   }
 
   getOneRandomImage() {
     request
-      .get('https://dog.ceo/api/breeds/image/random')
-      .then(res => this.props.setCorrectBreedGameUno(res.body.message))
-      .then(() => {
-        this.props.getAnswers(
-          this.props.correctBreedObj.name,
-          this.props.allBreeds
-        );
-      });
+    .get('https://dog.ceo/api/breeds/image/random')
+    .then(res => this.props.setCorrectBreedGameUno(res.body.message))
+    .then(() => {
+      this.props.getAnswers(
+        this.props.correctBreedObj.name,
+        this.props.allBreeds
+      );
+    });
   }
 
   getThreeRandomImages() {
     request
-      .get('https://dog.ceo/api/breeds/image/random/3')
-      .then(res => this.props.getThreeRandomImages(res.body.message))
-      .then(() => {
-        this.props.setCorrectBreedGameDos(this.props.threeImages);
-      });
+    .get('https://dog.ceo/api/breeds/image/random/3')
+    .then(res => this.props.getThreeRandomImages(res.body.message))
+    .then(() => {
+      this.props.setCorrectBreedGameDos(this.props.threeImages);
+      this.props.getAnswersFromImages(this.props.threeImages)
+    });
   }
 
   nextQuestion() {
-    // const gameVariationBool = Math.floor(Math.random() * 2);
+    const gameVariationBool = Math.floor(Math.random() * 2);
 
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
-    /** DEV DEV DEV DEV */ const gameVariationBool = false;
+    // /** DEV DEV DEV DEV */ const gameVariationBool = false;
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
 
     this.props.setGameVariation(gameVariationBool);
@@ -93,6 +97,7 @@ class App extends PureComponent {
   addTenCoins() {
     this.props.addTenCoins();
   }
+
   keyHandling(e) {
     if (!isButtonOnFocus) {
       //const focusThis = document.getElementsByClassName('0')[0];
@@ -134,7 +139,7 @@ class App extends PureComponent {
     console.log(e);
 
     const correctBreed = this.props.correctBreedObj.name;
-    const targetValue = e.target.value.toLowerCase();
+    const targetValue = e.target.value;
     const userFeedBack = new userFeedback(
       document.getElementById('button-' + correctBreed),
       document.getElementById('button-' + targetValue)
@@ -186,17 +191,17 @@ class App extends PureComponent {
     return (
       <div className="Container">
         {/*<Movie />*/}
-        <Header />
+        <Header/>
         {this.props.gameVariation ? (
-          <ImageContainer />
+          <ImageContainer/>
         ) : (
-          <ThreeImagesContainer onClick={this.handleImageClick} />
+          <ThreeImagesContainer onClick={this.handleImageClick}/>
         )}
-        <Neck />
+        <Neck/>
         {this.props.gameVariation ? (
-          <ButtonsContainer onClick={this.handleButtonClick} />
+          <ButtonsContainer onClick={this.handleButtonClick}/>
         ) : (
-          <QuestionContainer />
+          <QuestionContainer/>
         )}
       </div>
     );
@@ -204,11 +209,11 @@ class App extends PureComponent {
 }
 
 const mapStateToProps = ({
-  correctBreedObj,
-  allBreeds,
-  threeImages,
-  gameVariation
-}) => ({
+                           correctBreedObj,
+                           allBreeds,
+                           threeImages,
+                           gameVariation
+                         }) => ({
   correctBreedObj,
   allBreeds,
   threeImages,
@@ -220,6 +225,7 @@ const mapDispatchToProps = {
   addToScore,
   addToWinStreak,
   getAnswers,
+  getAnswersFromImages,
   resetWinStreak,
   setAllBreeds,
   setCorrectBreedGameUno,

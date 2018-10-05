@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import extractBreedName from "../helpers/extractBreedName";
 
 class ThreeImagesContainer extends Component {
-  extractBreedName = imageUrl => {
-    return imageUrl.split('/')[4].split('-')[0];
-  };
 
   render() {
     return (
       <div className="three-images-container">
-        {this.props.threeImages &&
-          this.props.threeImages.map(image => (
+        {this.props.threeImages && this.props.answers.length > 0 &&
+        this.props.threeImages.map((image, index) => {
+
+          const disabled = this.props.answers[index][0] === '_';
+          const className = "three-images-hover" + (disabled ? " disabled-image" : "");
+          const onClick = disabled ? null : this.props.onClick;
+
+          return (
             <img
-              id={'img-' + this.extractBreedName(image)}
-              className="three-images-hover"
-              onClick={this.props.onClick}
+              id={'img-' + extractBreedName(image)}
+              className={className}
+              onClick={onClick}
               src={image}
-              value={this.extractBreedName(image)}
+              value={extractBreedName(image)}
               alt=""
             />
-          ))}
+          )
+        })}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ threeImages }) => ({ threeImages });
+const mapStateToProps = ({ threeImages, answers }) => ({ threeImages, answers });
 
 export default connect(mapStateToProps)(ThreeImagesContainer);

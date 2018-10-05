@@ -1,15 +1,21 @@
 import shuffleArray from "../helpers/shuffleArray";
+import extractBreedName from "../helpers/extractBreedName";
 
 export const SET_CORRECT_BREED = 'SET_CORRECT_BREED';
 export const SET_CORRECT_BREED_FROM_IMAGES = 'SET_CORRECT_BREED_FROM_IMAGES';
 
-export default (state = {}, action = {}) => {
+const init = {
+  image: '',
+  name: ''
+};
+
+export default (state = init, action = {}) => {
   switch(action.type) {
 
     case SET_CORRECT_BREED:
       return {
         image: action.payload,
-        name: action.payload.split('/')[4].split('-')[0]
+        name: extractBreedName(action.payload)
       };
 
     case SET_CORRECT_BREED_FROM_IMAGES:
@@ -20,7 +26,7 @@ export default (state = {}, action = {}) => {
 
       return {
         image: correctBreed,
-        name: correctBreed.split('/')[4].split('-')[0]
+        name: extractBreedName(correctBreed)
       };
 
     default:
