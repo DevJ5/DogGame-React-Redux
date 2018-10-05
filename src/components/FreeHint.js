@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 export default function FreeHint(props) {
   return (
     <button
-      className={'FreeHint'}
+      className={"FreeHint"}
       disabled={props.isDisabled}
       onClick={props.onClick}>
       <img

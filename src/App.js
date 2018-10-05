@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import request from 'superagent';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import request from "superagent";
 
 import {
   addToNumberOfQuestionsAsked,
@@ -20,27 +20,27 @@ import {
   keyHandling,
   addThreeUniques,
   addImagesToTempSelectedBreeds
-} from './actions/AppActions';
+} from "./actions/AppActions";
 
-import userFeedback from './functions/userFeedback';
-import ImageContainer from './containers/ImageContainer';
-import ThreeImagesContainer from './containers/ThreeImagesContainer';
-import ButtonsContainer from './containers/ButtonsContainer';
-import QuestionContainer from './containers/QuestionContainer';
+import userFeedback from "./functions/userFeedback";
+import ImageContainer from "./containers/ImageContainer";
+import ThreeImagesContainer from "./containers/ThreeImagesContainer";
+import ButtonsContainer from "./containers/ButtonsContainer";
+import QuestionContainer from "./containers/QuestionContainer";
 
-import { Header } from './components/Header';
-import { Neck } from './components/Neck';
-//import { Movie } from './components/Movie';
+import { Header } from "./components/Header";
+import { Neck } from "./components/Neck";
+import { Movie } from "./components/Movie";
 
-let isButtonOnFocus = false;
-
+let focusIndex = null;
+let currentButton;
 class App extends PureComponent {
   componentDidMount() {
-    document.getElementsByClassName('0').click;
-    window.addEventListener('keyup', e => this.keyHandling(e));
+    document.getElementsByClassName("0").click;
+    window.addEventListener("keyup", e => this.keyHandling(e));
     this.props.getAllBreeds();
     request
-      .get('https://dog.ceo/api/breeds/list/all')
+      .get("https://dog.ceo/api/breeds/list/all")
       .then(res => {
         this.props.setAllBreeds(res.body.message);
       })
@@ -78,7 +78,7 @@ class App extends PureComponent {
 
   getOneRandomImage() {
     request
-      .get('https://dog.ceo/api/breeds/image/random')
+      .get("https://dog.ceo/api/breeds/image/random")
       .then(res => this.props.setCorrectBreedGameUno(res.body.message))
       .then(() => {
         this.props.getAnswers(
@@ -90,7 +90,7 @@ class App extends PureComponent {
 
   getThreeRandomImages() {
     request
-      .get('https://dog.ceo/api/breeds/image/random/3')
+      .get("https://dog.ceo/api/breeds/image/random/3")
       .then(res => this.props.getThreeRandomImages(res.body.message))
       .then(() => {
         this.props.setCorrectBreedGameDos(this.props.threeImages);
@@ -110,6 +110,8 @@ class App extends PureComponent {
       ? // ? this.getOneRandomImage()
         this.gameEins()
       : this.getThreeRandomImages();
+    focusIndex = null;
+    currentButton = null;
   }
 
   // Actions
@@ -138,12 +140,43 @@ class App extends PureComponent {
   }
 
   keyHandling(e) {
-    if (!isButtonOnFocus) {
-      //const focusThis = document.getElementsByClassName('0')[0];
-      return (isButtonOnFocus = true);
-    } else {
-      const codeOfKey = e.keyCode;
-      this.props.keyHandling(codeOfKey);
+    e.preventDefault();
+    const codeOfKey = e.keyCode;
+    this.props.keyHandling(codeOfKey);
+    this.focusButtonVertical(codeOfKey);
+  }
+
+  focusButtonVertical(pressedKey) {
+    if (pressedKey === 40 && focusIndex === null) {
+      currentButton = document.getElementsByClassName("0")[0];
+      document.getElementsByClassName("0")[0].focus();
+      focusIndex = 0;
+    } else if (pressedKey === 40 && focusIndex === 0) {
+      currentButton = document.getElementsByClassName("1")[0];
+      document.getElementsByClassName("1")[0].focus();
+      focusIndex = 1;
+    } else if (pressedKey === 40 && focusIndex === 1) {
+      currentButton = document.getElementsByClassName("2")[0];
+      document.getElementsByClassName("2")[0].focus();
+      focusIndex = 2;
+    } else if (pressedKey === 40 && focusIndex === 2) {
+      currentButton = document.getElementsByClassName("0")[0];
+      document.getElementsByClassName("0")[0].focus();
+      focusIndex = 0;
+    } else if (pressedKey === 38 && focusIndex === 2) {
+      currentButton = document.getElementsByClassName("1")[0];
+      document.getElementsByClassName("1")[0].focus();
+      focusIndex = 1;
+    } else if (pressedKey === 38 && focusIndex === 1) {
+      currentButton = document.getElementsByClassName("0")[0];
+      document.getElementsByClassName("0")[0].focus();
+      focusIndex = 0;
+    } else if (pressedKey === 38 && focusIndex === 0) {
+      currentButton = document.getElementsByClassName("2")[0];
+      document.getElementsByClassName("2")[0].focus();
+      focusIndex = 2;
+    } else if (pressedKey === 13 && currentButton !== null) {
+      currentButton.click();
     }
   }
 
@@ -188,8 +221,8 @@ class App extends PureComponent {
     const correctBreed = this.props.correctBreedObj.name;
     const targetValue = e.target.value;
     const userFeedBack = new userFeedback(
-      document.getElementById('button-' + correctBreed),
-      document.getElementById('button-' + targetValue)
+      document.getElementById("button-" + correctBreed),
+      document.getElementById("button-" + targetValue)
     );
 
     this.incrementQuestionsAsked();
@@ -207,7 +240,7 @@ class App extends PureComponent {
     this.addTenCoins();
     setTimeout(() => {
       this.nextQuestion();
-      correctImage.className = 'three-images-hover';
+      correctImage.className = "three-images-hover";
     }, 750);
   }
 
@@ -215,19 +248,19 @@ class App extends PureComponent {
     this.resetWinStreak();
     setTimeout(() => {
       this.nextQuestion();
-      correctImage.className = 'three-images-hover';
+      correctImage.className = "three-images-hover";
     }, 2000);
   }
 
   handleImageClick = e => {
     const correctBreed = this.props.correctBreedObj.name;
-    const correctImage = document.getElementById('img-' + correctBreed);
-    correctImage.className = 'correct-img';
+    const correctImage = document.getElementById("img-" + correctBreed);
+    correctImage.className = "correct-img";
 
     this.incrementQuestionsAsked();
     this.addToShownBreeds(correctBreed);
 
-    if (e.target.getAttribute('value') === correctBreed) {
+    if (e.target.getAttribute("value") === correctBreed) {
       this.rightAnswerImage(correctImage);
     } else {
       this.wrongAnswerImage(correctImage);
@@ -237,7 +270,7 @@ class App extends PureComponent {
   render() {
     return (
       <div className="Container">
-        {/*<Movie />*/}
+        <Movie />
         <Header />
         {this.props.gameVariation ? (
           <ImageContainer />
