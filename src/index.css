@@ -18,7 +18,7 @@ span {
   font-family: "Segoe UI", sans-serif;
   box-shadow:0 0 10px rgba(0, 0, 0, 0.7);
   background: rgba(218, 218, 218, 0.212);
-  border-radius: 20px;
+  border-radius: 5px;
 }
 
 .Header, .Neck {
@@ -30,10 +30,10 @@ span {
 }
 
 .Header {
-  border-radius: 20px 20px 0 0;
+  border-radius: 5px 5px 0 0;
 }
 .Button:focus{
-  background-color: red;
+  background-color: rgba(255, 217, 0, 0.521)
 }
 
 .Score, .Balance, .FreeHint, .PaidHint {
@@ -43,12 +43,12 @@ span {
 }
 
 .Score {
-  border-radius: 20px 0 0 0;
+  border-radius: 5px 0 0 0;
   background: rgba(185, 185, 185, 0)
 }
 
 .Balance {
-  border-radius: 0 20px 0 0;
+  border-radius: 0 5px 0 0;
   background: rgba(185, 185, 185, 0)
 }
 
@@ -173,6 +173,8 @@ span {
   letter-spacing: 2px;
 }
 
+
+
 .Button:hover {
   outline: none;
   background-color: rgba(233, 233, 233, 0.9);
@@ -205,12 +207,29 @@ span {
   color: rgba(255, 255, 255, 0.733);
 }
 
-.right-button, .right-button:hover {
+.right-button, .right-button:hover, .right-button:focus {
   border-color:rgba(27, 148, 27, 0.692);
   background-color: rgba(27, 148, 27, 0.692);
 }
 
-.wrong-button, .wrong-button:hover {
+.wrong-button, .wrong-button:hover, .wrong-button:focus {
   border-color:rgba(223, 12, 12, 0.651);
   background-color: rgba(223, 12, 12, 0.651);
+}
+
+.threep1bh3{
+  font-family: 'PT Mono', monospace;
+  font-size: 40px;
+  color: rgba(0, 0, 0, 0.795) ;
+  text-shadow: 2px 2px 1px rgba(255, 253, 253, 0.712);
+}
+
+.threeBreed{
+  text-emphasis: emphasis;
+  background-color: inherit;
+  font-size: 50px
+}
+
+.picture:focus{
+  outline: 3px red
 }

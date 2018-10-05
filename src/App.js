@@ -28,11 +28,12 @@ import { Header } from "./components/Header";
 import { Neck } from "./components/Neck";
 import { Movie } from "./components/Movie";
 
-let isButtonOnFocus = false;
+let focusIndex = null;
+let currentButton;
+
 class App extends PureComponent {
   componentDidMount() {
-    document.getElementsByClassName("0").click;
-    window.addEventListener("keyup", e => this.keyHandling(e));
+    window.addEventListener("keydown", e => this.keyHandling(e));
     this.props.getAllBreeds();
     this.nextQuestion();
   }
@@ -59,6 +60,8 @@ class App extends PureComponent {
     const gameVariationBool = Math.floor(Math.random() * 2);
     this.props.setGameVariation(gameVariationBool);
     gameVariationBool ? this.getOneRandomImage() : this.getThreeRandomImages();
+    focusIndex = null;
+    currentButton = null;
   }
 
   // Actions
@@ -86,12 +89,43 @@ class App extends PureComponent {
     this.props.addTenCoins();
   }
   keyHandling(e) {
-    if (!isButtonOnFocus) {
-      const focusThis = document.getElementsByClassName("0");
-      return (isButtonOnFocus = true);
-    } else {
-      const codeOfKey = e.keyCode;
-      this.props.keyHandling(codeOfKey);
+    e.preventDefault();
+    const codeOfKey = e.keyCode;
+    this.props.keyHandling(codeOfKey);
+    this.focusButtonVertical(codeOfKey);
+  }
+
+  focusButtonVertical(pressedKey) {
+    if (pressedKey === 40 && focusIndex === null) {
+      currentButton = document.getElementsByClassName("0")[0];
+      document.getElementsByClassName("0")[0].focus();
+      focusIndex = 0;
+    } else if (pressedKey === 40 && focusIndex === 0) {
+      currentButton = document.getElementsByClassName("1")[0];
+      document.getElementsByClassName("1")[0].focus();
+      focusIndex = 1;
+    } else if (pressedKey === 40 && focusIndex === 1) {
+      currentButton = document.getElementsByClassName("2")[0];
+      document.getElementsByClassName("2")[0].focus();
+      focusIndex = 2;
+    } else if (pressedKey === 40 && focusIndex === 2) {
+      currentButton = document.getElementsByClassName("0")[0];
+      document.getElementsByClassName("0")[0].focus();
+      focusIndex = 0;
+    } else if (pressedKey === 38 && focusIndex === 2) {
+      currentButton = document.getElementsByClassName("1")[0];
+      document.getElementsByClassName("1")[0].focus();
+      focusIndex = 1;
+    } else if (pressedKey === 38 && focusIndex === 1) {
+      currentButton = document.getElementsByClassName("0")[0];
+      document.getElementsByClassName("0")[0].focus();
+      focusIndex = 0;
+    } else if (pressedKey === 38 && focusIndex === 0) {
+      currentButton = document.getElementsByClassName("2")[0];
+      document.getElementsByClassName("2")[0].focus();
+      focusIndex = 2;
+    } else if (pressedKey === 13 && currentButton !== null) {
+      currentButton.click();
     }
   }
 
