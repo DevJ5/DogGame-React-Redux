@@ -1,6 +1,6 @@
-import React, { PureComponent } from "react";
-import { connect } from "react-redux";
-import request from "superagent";
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import request from 'superagent';
 
 import {
   addToNumberOfQuestionsAsked,
@@ -17,30 +17,29 @@ import {
   getThreeRandomImages,
   setGameVariation,
   keyHandling
-} from "./actions/AppActions";
+} from './actions/AppActions';
 
-import userFeedback from "./functions/userFeedback";
-import ImageContainer from "./containers/ImageContainer";
-import ThreeImagesContainer from "./containers/ThreeImagesContainer";
-import ButtonsContainer from "./containers/ButtonsContainer";
-import QuestionContainer from "./containers/QuestionContainer";
+import userFeedback from './functions/userFeedback';
+import ImageContainer from './containers/ImageContainer';
+import ThreeImagesContainer from './containers/ThreeImagesContainer';
+import ButtonsContainer from './containers/ButtonsContainer';
+import QuestionContainer from './containers/QuestionContainer';
 
-import { Header } from "./components/Header";
-import { Neck } from "./components/Neck";
-import { Movie } from "./components/Movie";
+import { Header } from './components/Header';
+import { Neck } from './components/Neck';
+//import { Movie } from './components/Movie';
 
 let isButtonOnFocus = false;
 class App extends PureComponent {
   componentDidMount() {
-    document.getElementsByClassName("0").click;
-    window.addEventListener("keyup", e => this.keyHandling(e));
+    window.addEventListener('keyup', e => this.keyHandling(e));
     this.props.getAllBreeds();
     this.nextQuestion();
   }
 
   getOneRandomImage() {
     request
-      .get("https://dog.ceo/api/breeds/image/random")
+      .get('https://dog.ceo/api/breeds/image/random')
       .then(res => this.props.setCorrectBreedGameUno(res.body.message))
       .then(() => {
         this.props.getAnswers(
@@ -51,18 +50,19 @@ class App extends PureComponent {
   }
 
   getThreeRandomImages() {
-    request.get("https://dog.ceo/api/breeds/image/random/3")
-    .then(res => this.props.getThreeRandomImages(res.body.message))
-    .then(() => {
-      this.props.setCorrectBreedGameDos(this.props.threeImages)
-    });
+    request
+      .get('https://dog.ceo/api/breeds/image/random/3')
+      .then(res => this.props.getThreeRandomImages(res.body.message))
+      .then(() => {
+        this.props.setCorrectBreedGameDos(this.props.threeImages);
+      });
   }
 
   nextQuestion() {
-    const gameVariationBool = Math.floor(Math.random() * 2);
+    // const gameVariationBool = Math.floor(Math.random() * 2);
 
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
-    // /** DEV DEV DEV DEV */ const gameVariationBool = false;
+    /** DEV DEV DEV DEV */ const gameVariationBool = false;
     /** DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV DEV */
 
     this.props.setGameVariation(gameVariationBool);
@@ -95,7 +95,7 @@ class App extends PureComponent {
   }
   keyHandling(e) {
     if (!isButtonOnFocus) {
-      const focusThis = document.getElementsByClassName("0");
+      //const focusThis = document.getElementsByClassName('0')[0];
       return (isButtonOnFocus = true);
     } else {
       const codeOfKey = e.keyCode;
@@ -136,8 +136,8 @@ class App extends PureComponent {
     const correctBreed = this.props.correctBreedObj.name;
     const targetValue = e.target.value.toLowerCase();
     const userFeedBack = new userFeedback(
-      document.getElementById("button-" + correctBreed),
-      document.getElementById("button-" + targetValue)
+      document.getElementById('button-' + correctBreed),
+      document.getElementById('button-' + targetValue)
     );
 
     this.incrementQuestionsAsked();
@@ -149,25 +149,36 @@ class App extends PureComponent {
       this.WrongButton(userFeedBack);
     }
   };
+  rightAnswerImage(correctImage) {
+    this.incrementScore();
+    this.incrementWinStreak();
+    this.addTenCoins();
+    setTimeout(() => {
+      this.nextQuestion();
+      correctImage.className = 'three-images-hover';
+    }, 750);
+  }
+
+  wrongAnswerImage(correctImage) {
+    this.resetWinStreak();
+    setTimeout(() => {
+      this.nextQuestion();
+      correctImage.className = 'three-images-hover';
+    }, 2000);
+  }
 
   handleImageClick = e => {
     const correctBreed = this.props.correctBreedObj.name;
+    const correctImage = document.getElementById('img-' + correctBreed);
+    correctImage.className = 'correct-img';
+
     this.incrementQuestionsAsked();
     this.addToShownBreeds(correctBreed);
+
     if (e.target.getAttribute('value') === correctBreed) {
-      console.log('You won');
-      this.incrementScore();
-      this.incrementWinStreak();
-      this.addTenCoins();
-      setTimeout(() => {
-        this.nextQuestion();
-      }, 750);
+      this.rightAnswerImage(correctImage);
     } else {
-      console.log("You Lost");
-      this.resetWinStreak();
-      setTimeout(() => {
-        this.nextQuestion();
-      }, 2000);
+      this.wrongAnswerImage(correctImage);
     }
   };
 

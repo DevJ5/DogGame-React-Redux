@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class ThreeImagesContainer extends Component {
-
   extractBreedName = imageUrl => {
     return imageUrl.split('/')[4].split('-')[0];
   };
@@ -13,7 +12,8 @@ class ThreeImagesContainer extends Component {
         {this.props.threeImages &&
           this.props.threeImages.map(image => (
             <img
-              className=""
+              id={'img-' + this.extractBreedName(image)}
+              className="three-images-hover"
               onClick={this.props.onClick}
               src={image}
               value={this.extractBreedName(image)}
