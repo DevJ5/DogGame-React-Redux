@@ -11,7 +11,8 @@ class ThreeImagesContainer extends Component {
         {this.props.threeImages &&
           this.props.threeImages.images.map(image => (
             <img
-              className=""
+              id={'img-' + this.correctBreed(image)}
+              className="three-images-hover"
               onClick={this.props.onClick}
               src={image}
               value={this.correctBreed(image)}

@@ -12,7 +12,7 @@ span {
 }
 
 .Container {
-  width: 70%;
+  width: 60%;
   margin: 60px auto;
   font-size: 20px;
   font-family: "Segoe UI", sans-serif;
@@ -105,9 +105,19 @@ span {
   box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   height: 200px;
-  max-width: 300px;
+  width: 160px;
   margin: 2%;
   cursor: pointer;
+  box-sizing: border-box;
+}
+
+.three-images-hover:hover {
+ border: 3px solid grey;
+}
+
+.three-images-container .correct-img {
+  border: 4px solid green;
+  box-shadow:0 0 10px rgba(43, 167, 12, 0.9);
 }
 
 .question-container  {
