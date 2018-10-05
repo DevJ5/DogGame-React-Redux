@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 class QuestionContainer extends Component {
   render() {
     return (
-      this.props.threeImages && (
+      this.props.correctBreedObj && (
         <div className="question-container">
-          <h3>Click the {this.props.threeImages.correctBreed}</h3>
+          <h3>Click the {this.props.correctBreedObj.name}</h3>
         </div>
       )
     );
   }
 }
 
-const mapStateToProps = ({ threeImages }) => ({ threeImages });
+const mapStateToProps = ({ correctBreedObj }) => ({ correctBreedObj });
 
 export default connect(mapStateToProps)(QuestionContainer);

@@ -7,16 +7,7 @@ export default (state = null, action) => {
 
     case GET_THREE_IMAGES:
 
-      const threeImagesUrls = [...action.payload];
-
-      const correctBreed = shuffleArray(threeImagesUrls)[0]
-        .split('/')[4]
-        .split('-')[0];
-
-      return {
-        correctBreed: correctBreed,
-        images: action.payload
-      };
+      return action.payload;
 
     default:
       return state;

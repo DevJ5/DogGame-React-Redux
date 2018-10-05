@@ -2,19 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class ThreeImagesContainer extends Component {
-  correctBreed = imageUrl => {
+
+  extractBreedName = imageUrl => {
     return imageUrl.split('/')[4].split('-')[0];
   };
+
   render() {
     return (
       <div className="three-images-container">
         {this.props.threeImages &&
-          this.props.threeImages.images.map(image => (
+          this.props.threeImages.map(image => (
             <img
               className=""
               onClick={this.props.onClick}
               src={image}
-              value={this.correctBreed(image)}
+              value={this.extractBreedName(image)}
               alt=""
             />
           ))}
