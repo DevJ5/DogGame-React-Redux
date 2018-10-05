@@ -4,16 +4,14 @@ import capitalize from '../helpers/capitalize';
 
 class QuestionContainer extends Component {
   render() {
-    return (
-      this.props.threeImages && (
-        <div className="question-container">
-          <h3>Click the {capitalize(this.props.threeImages.correctBreed)}</h3>
-        </div>
-      )
-    );
+    return this.props.correctBreedObj.name ? (
+      <div className="question-container">
+        <h3>Click the {capitalize(this.props.correctBreedObj.name)}</h3>
+      </div>
+    ) : null;
   }
 }
 
-const mapStateToProps = ({ threeImages }) => ({ threeImages });
+const mapStateToProps = ({ correctBreedObj }) => ({ correctBreedObj });
 
 export default connect(mapStateToProps)(QuestionContainer);

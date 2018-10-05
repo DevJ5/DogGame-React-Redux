@@ -1,6 +1,6 @@
 import { SET_BREEDS } from "../reducers/allBreeds";
 import { GET_THREE_IMAGES } from "../reducers/threeImages";
-import { SET_CORRECT_BREED } from "../reducers/correctBreed";
+import { SET_CORRECT_BREED, SET_CORRECT_BREED_FROM_IMAGES } from "../reducers/correctBreed";
 import { GET_ANSWERS } from "../reducers/answers";
 import { SET_GAME_VARIATION } from "../reducers/gameVariation";
 import { ADD_TO_SCORE } from "../reducers/score/currentScore";
@@ -28,6 +28,11 @@ export const setAllBreeds = breeds => ({
 export const setCorrectBreedGameUno = breedUrl => ({
   type: SET_CORRECT_BREED,
   payload: breedUrl
+});
+
+export const setCorrectBreedGameDos = breedImages => ({
+  type: SET_CORRECT_BREED_FROM_IMAGES,
+  payload: breedImages
 });
 
 export const getThreeRandomImages = threeImages => ({
