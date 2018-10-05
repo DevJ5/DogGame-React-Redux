@@ -1,15 +1,15 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
-import allBreeds from './allBreeds';
-import correctBreedObj from './correctBreed';
-import answers from './answers';
-import score from './score/';
-import currentStreak from './currentStreak';
-import shownBreeds from './shownBreeds';
-import balance from './balance';
-import threeImages from './threeImages';
-import gameVariation from './gameVariation';
-
+import allBreeds from "./allBreeds";
+import correctBreedObj from "./correctBreed";
+import answers from "./answers";
+import score from "./score/";
+import currentStreak from "./currentStreak";
+import shownBreeds from "./shownBreeds";
+import balance from "./balance";
+import threeImages from "./threeImages";
+import gameVariation from "./gameVariation";
+import keyHandling from "./keyHandeling";
 export default combineReducers({
   allBreeds,
   correctBreedObj,
@@ -19,5 +19,6 @@ export default combineReducers({
   shownBreeds,
   balance,
   threeImages,
-  gameVariation
+  gameVariation,
+  keyHandling
 });

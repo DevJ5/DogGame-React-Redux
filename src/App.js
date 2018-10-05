@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import request from 'superagent';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import request from "superagent";
 
 import {
   addToNumberOfQuestionsAsked,
@@ -14,28 +14,32 @@ import {
   addTenCoins,
   getAllBreeds,
   getThreeRandomImages,
-  setGameVariation
-} from './actions/AppActions';
+  setGameVariation,
+  keyHandling
+} from "./actions/AppActions";
 
-import userFeedback from './functions/userFeedback';
-import ImageContainer from './containers/ImageContainer';
-import ThreeImagesContainer from './containers/ThreeImagesContainer';
-import ButtonsContainer from './containers/ButtonsContainer';
-import QuestionContainer from './containers/QuestionContainer';
+import userFeedback from "./functions/userFeedback";
+import ImageContainer from "./containers/ImageContainer";
+import ThreeImagesContainer from "./containers/ThreeImagesContainer";
+import ButtonsContainer from "./containers/ButtonsContainer";
+import QuestionContainer from "./containers/QuestionContainer";
 
-import { Header } from './components/Header';
-import { Neck } from './components/Neck';
-//import { Movie } from './components/Movie';
+import { Header } from "./components/Header";
+import { Neck } from "./components/Neck";
+import { Movie } from "./components/Movie";
 
+let isButtonOnFocus = false;
 class App extends PureComponent {
   componentDidMount() {
+    document.getElementsByClassName("0").click;
+    window.addEventListener("keyup", e => this.keyHandling(e));
     this.props.getAllBreeds();
     this.nextQuestion();
   }
 
   getOneRandomImage() {
     request
-      .get('https://dog.ceo/api/breeds/image/random')
+      .get("https://dog.ceo/api/breeds/image/random")
       .then(res => this.props.setCorrectBreedGameUno(res.body.message))
       .then(() => {
         this.props.getAnswers(
@@ -46,7 +50,7 @@ class App extends PureComponent {
   }
 
   getThreeRandomImages() {
-    request.get('https://dog.ceo/api/breeds/image/random/3').then(res => {
+    request.get("https://dog.ceo/api/breeds/image/random/3").then(res => {
       this.props.getThreeRandomImages(res.body.message);
     });
   }
@@ -80,6 +84,15 @@ class App extends PureComponent {
 
   addTenCoins() {
     this.props.addTenCoins();
+  }
+  keyHandling(e) {
+    if (!isButtonOnFocus) {
+      const focusThis = document.getElementsByClassName("0");
+      return (isButtonOnFocus = true);
+    } else {
+      const codeOfKey = e.keyCode;
+      this.props.keyHandling(codeOfKey);
+    }
   }
 
   WrongButton(userFeedBack) {
@@ -115,8 +128,8 @@ class App extends PureComponent {
     const correctBreed = this.props.correctBreedObj.name;
     const targetValue = e.target.value.toLowerCase();
     const userFeedBack = new userFeedback(
-      document.getElementById('button-' + correctBreed),
-      document.getElementById('button-' + targetValue)
+      document.getElementById("button-" + correctBreed),
+      document.getElementById("button-" + targetValue)
     );
 
     this.incrementQuestionsAsked();
@@ -142,7 +155,7 @@ class App extends PureComponent {
         this.nextQuestion();
       }, 750);
     } else {
-      console.log('You Lost');
+      console.log("You Lost");
       this.resetWinStreak();
       setTimeout(() => {
         this.nextQuestion();
@@ -153,7 +166,7 @@ class App extends PureComponent {
   render() {
     return (
       <div className="Container">
-        {/*<Movie />*/}
+        <Movie />
         <Header />
         {this.props.gameVariation ? (
           <ImageContainer />
@@ -194,6 +207,7 @@ const mapDispatchToProps = {
   getAllBreeds,
   addShownBreeds,
   addTenCoins,
+  keyHandling,
   getThreeRandomImages,
   setGameVariation
 };
